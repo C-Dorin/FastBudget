@@ -1,8 +1,10 @@
 <script>
-	import Otherview from './Otherview/+page.svelte';
+	import Otherview from './Overview/+page.svelte';
 	import Transactions from './Transactions/+page.svelte';
 </script>
 
 <!-- <Otherview />
 <Transactions /> -->
-<div></div>
+<div class="flex flex-col items-center pt-0">
+	<p>Hello</p>
+</div>
