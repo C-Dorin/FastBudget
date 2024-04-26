@@ -1,4 +1,5 @@
 <script>
+	export let CurrentPage;
 </script>
 
 <div class="flex items-center h-12 sapphire">
@@ -9,7 +10,9 @@
 			</button>
 		</div>
 		<div class="px-4">
-			<h1 class="text-xl font-medium pl-2">Aici este denumirea la pagina</h1>
+			<h1 class="text-xl font-medium pl-2">
+				<p>{CurrentPage}</p>
+			</h1>
 		</div>
 	</div>
 </div>

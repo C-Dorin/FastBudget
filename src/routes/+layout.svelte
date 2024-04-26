@@ -12,13 +12,8 @@
 <!-- Main -->
 <div class="flex w-full h-full">
 	<!-- Menu -->
-	<div class="h-full w-1/4 fixed">
+	<div class="h-full w-64 fixed">
 		<Menu />
-	</div>
-
-	<!-- Header -->
-	<div class="w-full top-0 fixed">
-		<Header />
 	</div>
 
 	<!-- Content -->
