@@ -1,6 +1,5 @@
 <script>
 	import '../app.css';
-	import Header from '$lib/Page/header.svelte';
 	import Menu from '$lib/Page/menu.svelte';
 </script>
 
