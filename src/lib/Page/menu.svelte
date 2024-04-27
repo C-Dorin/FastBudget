@@ -46,7 +46,9 @@
 	<!-- Overview -->
 	<a href="/Overview" class="flex flex-row" on:click={() => (currentPage = 'Otherview')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize">donut_large</span>
-		<p class="pt-1.5">Overview</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Overview</p>
+		{/if}
 	</a>
 
 	<!-- Transactions -->
@@ -58,7 +60,9 @@
 		}}
 	>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> receipt_long </span>
-		<p class="pt-1.5">Transactions</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Transactions</p>
+		{/if}
 	</a>
 
 	<!-- ScheduledTransactions -->
@@ -68,37 +72,49 @@
 		on:click={() => (currentPage = 'Scheduled Transactions')}
 	>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> schedule </span>
-		<p class="pt-1.5">Scheduled Transactions</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Scheduled Transactions</p>
+		{/if}
 	</a>
 
 	<!-- Accounts -->
 	<a href="/Accounts" class="flex flex-row" on:click={() => (currentPage = 'Accounts')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> account_balance_wallet </span>
-		<p class="pt-1.5">Accounts</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Accounts</p>
+		{/if}
 	</a>
 
 	<!-- Budgets -->
 	<a href="/Budgets" class="flex flex-row" on:click={() => (currentPage = 'Budgets')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> inventory_2 </span>
-		<p class="pt-1.5">Budgets</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Budgets</p>
+		{/if}
 	</a>
 
 	<!-- Debts -->
 	<a href="/Debts" class="flex flex-row" on:click={() => (currentPage = 'Debts')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> timelapse </span>
-		<p class="pt-1.5">Debts</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Debts</p>
+		{/if}
 	</a>
 
 	<!-- Calendar -->
 	<a href="/Calendar" class="flex flex-row" on:click={() => (currentPage = 'Calendar')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> calendar_month </span>
-		<p class="pt-1.5">Calendar</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Calendar</p>
+		{/if}
 	</a>
 
 	<!-- Settings -->
 	<a href="/Settings" class="flex flex-row" on:click={() => (currentPage = 'Settings')}>
 		<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> settings </span>
-		<p class="pt-1.5">Settings</p>
+		{#if currentSizeMenu === bigSizeMenu}
+			<p class="pt-1.5">Settings</p>
+		{/if}
 	</a>
 </nav>
 
