@@ -1,5 +1,16 @@
 <script>
-	let currentPage = 'Overview';
+	import { page } from '$app/stores';
+
+	let pagesLibrary = [
+		{ path: '/Overview', icon: 'donut_large', label: 'Overview' },
+		{ path: '/Transactions', icon: 'receipt_long', label: 'Transactions' },
+		{ path: '/ScheduledTransactions', icon: 'schedule', label: 'ScheduledTransactions' },
+		{ path: '/Accounts', icon: 'account_balance_wallet', label: 'Accounts' },
+		{ path: '/Budgets', icon: 'inventory_2', label: 'Budgets' },
+		{ path: '/Debts', icon: 'timelapse', label: 'Debts' },
+		{ path: '/Calendar', icon: 'calendar_month', label: 'Calendar' },
+		{ path: '/Settings', icon: 'settings', label: 'Settings' }
+	];
 
 	let smallSizeMenu = 50;
 	let bigSizeMenu = 256;
@@ -16,18 +27,18 @@
 		currentSizeMenu = bigSizeMenu;
 	}
 
-	function resizePageInSmallMenu() {
-		if (pageWidth <= 1000) {
-			resizeInSmallMenu();
-		}
-	}
+	/** @type {string} */
+	let currentLinkPage;
+	$: currentLinkPage = $page.url.pathname;
+
+	let currentPage = 'Overview';
 </script>
 
 <svelte:window bind:innerWidth={pageWidth} />
 
 <!-- Top Menu -->
 <div class="w-full top-0 fixed">
-	<div class="flex items-center h-12 sapphire">
+	<div class="flex items-center h-12 sapphire_BG">
 		<div class="flex items-center space-x-1 text-white">
 			<div class="pl-6">
 				{#if currentSizeMenu === bigSizeMenu}
@@ -50,226 +61,24 @@
 </div>
 
 <!-- Navigation Menu -->
-<nav
-	class="flex flex-col h-full pt-14 columbia-blue justify-top"
-	style="width: {currentSizeMenu}px;"
-	on:resize={() => resizePageInSmallMenu}
->
-	<!-- bug -->
-	<!-- Overview -->
-	{#if currentPage === 'Overview'}
+<nav class="flex flex-col h-full pt-14 columbia-blue_BG" style="width: {currentSizeMenu}px;">
+	{#each pagesLibrary as link}
 		<a
-			href="/Overview"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Overview')}
+			href={link.path}
+			class="flex flex-row button {currentLinkPage === link.path
+				? 'bice-blue_BG text-slate-200'
+				: 'buttonH'}"
+			on:click={() => (currentPage = link.label)}
 		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize">donut_large</span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Overview</p>
+			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize">{link.icon}</span>
+			{#if currentSizeMenu === bigSizeMenu}
+				<p class="pt-1.5">{link.label}</p>
 			{/if}
 		</a>
-	{:else}
-		<a
-			href="/Overview"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Overview')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize">donut_large</span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Overview</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Transactions -->
-	{#if currentPage === 'Transactions'}
-		<a
-			href="/Transactions"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => {
-				currentPage = 'Transactions';
-			}}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> receipt_long </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Transactions</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/Transactions"
-			class="flex flex-row button buttonH"
-			on:click={() => {
-				currentPage = 'Transactions';
-			}}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> receipt_long </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Transactions</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- ScheduledTransactions -->
-	{#if currentPage === 'Scheduled Transactions'}
-		<a
-			href="/ScheduledTransactions"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Scheduled Transactions')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> schedule </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Scheduled Transactions</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/ScheduledTransactions"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Scheduled Transactions')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> schedule </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Scheduled Transactions</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Accounts -->
-	{#if currentPage === 'Accounts'}
-		<a
-			href="/Accounts"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Accounts')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> account_balance_wallet </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Accounts</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/Accounts"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Accounts')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> account_balance_wallet </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Accounts</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Budgets -->
-	{#if currentPage === 'Budgets'}
-		<a
-			href="/Budgets"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Budgets')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> inventory_2 </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Budgets</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/Budgets"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Budgets')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> inventory_2 </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Budgets</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Debts -->
-	{#if currentPage === 'Debts'}
-		<a
-			href="/Debts"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Debts')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> timelapse </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Debts</p>
-			{/if}
-		</a>
-	{:else}
-		<a href="/Debts" class="flex flex-row button buttonH" on:click={() => (currentPage = 'Debts')}>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> timelapse </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Debts</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Calendar -->
-	{#if currentPage === 'Calendar'}
-		<a
-			href="/Calendar"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Calendar')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> calendar_month </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Calendar</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/Calendar"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Calendar')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> calendar_month </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Calendar</p>
-			{/if}
-		</a>
-	{/if}
-
-	<!-- Settings -->
-	{#if currentPage === 'Settings'}
-		<a
-			href="/Settings"
-			class="flex flex-row bice-blue button text-slate-200"
-			on:click={() => (currentPage = 'Settings')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> settings </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Settings</p>
-			{/if}
-		</a>
-	{:else}
-		<a
-			href="/Settings"
-			class="flex flex-row button buttonH"
-			on:click={() => (currentPage = 'Settings')}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize"> settings </span>
-			{#if currentSizeMenu === bigSizeMenu && pageWidth > 1000}
-				<p class="pt-1.5">Settings</p>
-			{/if}
-		</a>
-	{/if}
+	{/each}
 </nav>
 
 <style>
-	.sapphire {
-		background-color: #0353a4;
-	}
-
-	.bice-blue {
-		background-color: #006daa;
-	}
-
-	.columbia-blue {
-		background-color: rgb(185, 214, 242);
-	}
-
 	.button {
 		font-size: 1.125rem; /* 18px */
 		line-height: 1.75rem; /* 28px */

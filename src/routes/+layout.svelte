@@ -1,6 +1,7 @@
 <script>
 	import '../app.css';
 	import Menu from '$lib/Page/menu.svelte';
+	import Content from '$lib/Page/content.svelte';
 </script>
 
 <link
@@ -9,14 +10,14 @@
 />
 
 <!-- Main -->
-<div class="flex w-full h-full">
+<div class="flex flex-row w-full h-full">
 	<!-- Menu -->
-	<div class="h-full w-64 fixed">
+	<div class="flex-none h-full w-64 fixed">
 		<Menu />
 	</div>
 
 	<!-- Content -->
-	<div class="flex flex-col h-full w-3/4 ml-auto items-center pt-20">
-		<slot />
+	<div class="grow w-full h-full pl-12">
+		<Content />
 	</div>
 </div>
