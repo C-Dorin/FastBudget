@@ -17,7 +17,7 @@
 	</div>
 
 	<!-- Content -->
-	<div class="grow w-full h-full pl-12">
+	<div class="w-full h-full pl-12">
 		<Content />
 	</div>
 </div>

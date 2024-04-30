@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 
+	// ===== Page url/name ===== //
 	let pagesLibrary = [
 		{ path: '/Overview', icon: 'donut_large', label: 'Overview' },
 		{ path: '/Transactions', icon: 'receipt_long', label: 'Transactions' },
@@ -12,12 +13,18 @@
 		{ path: '/Settings', icon: 'settings', label: 'Settings' }
 	];
 
+	/** @type {string} */
+	let currentLinkPage;
+	$: currentLinkPage = $page.url.pathname;
+
+	let currentPage = 'Overview';
+
+	// ===== Menu size ===== //
+	/** @type {number} */
+	let pageWidth;
 	let smallSizeMenu = 50;
 	let bigSizeMenu = 256;
 	let currentSizeMenu = bigSizeMenu;
-
-	/** @type {any} */
-	let pageWidth;
 
 	function resizeInSmallMenu() {
 		currentSizeMenu = smallSizeMenu;
@@ -27,41 +34,43 @@
 		currentSizeMenu = bigSizeMenu;
 	}
 
-	/** @type {string} */
-	let currentLinkPage;
-	$: currentLinkPage = $page.url.pathname;
-
-	let currentPage = 'Overview';
+	// resize the menu when the page is less than 1000 px
+	$: {
+		if (pageWidth <= 1000) {
+			resizeInSmallMenu();
+		}
+	}
 </script>
 
 <svelte:window bind:innerWidth={pageWidth} />
 
 <!-- Top Menu -->
-<div class="w-full top-0 fixed">
-	<div class="flex items-center h-12 sapphire_BG">
-		<div class="flex items-center space-x-1 text-white">
-			<div class="pl-6">
-				{#if currentSizeMenu === bigSizeMenu}
-					<button class="flex items-center">
-						<span class="material-symbols-outlined menu" on:click={resizeInSmallMenu}> menu </span>
-					</button>
-				{:else if currentSizeMenu === smallSizeMenu}
-					<button class="flex items-center">
-						<span class="material-symbols-outlined menu" on:click={resizeInBigMenu}> menu </span>
-					</button>
-				{/if}
-			</div>
-			<div class="px-4">
-				<h1 class="text-xl font-medium pl-2">
-					<p>{currentPage}</p>
-				</h1>
-			</div>
+<div class="flex top-0 fixed w-full h-12 items-center sapphire_BG">
+	<div class="flex items-center space-x-1 text-white">
+		<!-- Icon -->
+		<div class="pl-6">
+			{#if currentSizeMenu === bigSizeMenu}
+				<button class="flex items-center" on:click={resizeInSmallMenu}>
+					<span class="material-symbols-outlined menu"> menu </span>
+				</button>
+			{:else if currentSizeMenu === smallSizeMenu}
+				<button class="flex items-center" on:click={resizeInBigMenu}>
+					<span class="material-symbols-outlined menu"> menu </span>
+				</button>
+			{/if}
+		</div>
+		<!-- Page -->
+		<div class="px-4">
+			<h1 class="text-xl font-medium pl-2">{currentPage}</h1>
 		</div>
 	</div>
 </div>
 
 <!-- Navigation Menu -->
-<nav class="flex flex-col h-full pt-14 columbia-blue_BG" style="width: {currentSizeMenu}px;">
+<nav
+	class="flex flex-col h-full pt-14 columbia-blue_BG border-r-2"
+	style="width: {currentSizeMenu}px; border-color: rgba(0, 53, 89, 0.8);"
+>
 	{#each pagesLibrary as link}
 		<a
 			href={link.path}
