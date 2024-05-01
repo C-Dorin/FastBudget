@@ -8,42 +8,29 @@
 	import Calendar from '../../routes/Calendar/+page.svelte';
 	import Settings from '../../routes/Settings/+page.svelte';
 
-	let currentPage = 'ew';
+	/** @type {string} */
+	export let currentPage;
+
+	/** @type {number} */
+	export let currentSizeMenu;
 </script>
 
-{#if currentPage === 'Overview'}
-	<div class="pt-12 pl-52">
+<div class="pt-12 {currentSizeMenu === 56 ? 'pl-14' : 'pl-64'}">
+	{#if currentPage === 'Overview'}
 		<Overview />
-	</div>
-{:else if currentPage === 'Transactions'}
-	<div>
+	{:else if currentPage === 'Transactions'}
 		<Transactions />
-	</div>
-{:else if currentPage === 'Scheduled Transactions'}
-	<div>
+	{:else if currentPage === 'Scheduled Transactions'}
 		<ScheduledTransactions />
-	</div>
-{:else if currentPage === 'Accounts'}
-	<div>
+	{:else if currentPage === 'Accounts'}
 		<Accounts />
-	</div>
-{:else if currentPage === 'Budgets'}
-	<div>
+	{:else if currentPage === 'Budgets'}
 		<Budgets />
-	</div>
-{:else if currentPage === 'Debts'}
-	<div>
+	{:else if currentPage === 'Debts'}
 		<Debts />
-	</div>
-{:else if currentPage === 'Calendar'}
-	<div>
+	{:else if currentPage === 'Calendar'}
 		<Calendar />
-	</div>
-{:else if currentPage === 'Settings'}
-	<div>
+	{:else if currentPage === 'Settings'}
 		<Settings />
-	</div>
-{/if}
-
-<style>
-</style>
+	{/if}
+</div>

@@ -1,11 +1,12 @@
 <script>
 	import { page } from '$app/stores';
+	import Content from '$lib/Page/content.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [
 		{ path: '/Overview', icon: 'donut_large', label: 'Overview' },
 		{ path: '/Transactions', icon: 'receipt_long', label: 'Transactions' },
-		{ path: '/ScheduledTransactions', icon: 'schedule', label: 'ScheduledTransactions' },
+		{ path: '/ScheduledTransactions', icon: 'schedule', label: 'Scheduled Transactions' },
 		{ path: '/Accounts', icon: 'account_balance_wallet', label: 'Accounts' },
 		{ path: '/Budgets', icon: 'inventory_2', label: 'Budgets' },
 		{ path: '/Debts', icon: 'timelapse', label: 'Debts' },
@@ -22,7 +23,7 @@
 	// ===== Menu size ===== //
 	/** @type {number} */
 	let pageWidth;
-	let smallSizeMenu = 50;
+	let smallSizeMenu = 56;
 	let bigSizeMenu = 256;
 	let currentSizeMenu = bigSizeMenu;
 
@@ -45,47 +46,53 @@
 <svelte:window bind:innerWidth={pageWidth} />
 
 <!-- Top Menu -->
-<div class="flex top-0 fixed w-full h-12 items-center sapphire_BG">
-	<div class="flex items-center space-x-1 text-white">
-		<!-- Icon -->
-		<div class="pl-6">
-			{#if currentSizeMenu === bigSizeMenu}
-				<button class="flex items-center" on:click={resizeInSmallMenu}>
-					<span class="material-symbols-outlined menu"> menu </span>
-				</button>
-			{:else if currentSizeMenu === smallSizeMenu}
-				<button class="flex items-center" on:click={resizeInBigMenu}>
-					<span class="material-symbols-outlined menu"> menu </span>
-				</button>
-			{/if}
-		</div>
-		<!-- Page -->
-		<div class="px-4">
-			<h1 class="text-xl font-medium pl-2">{currentPage}</h1>
+<div class="h-full fixed">
+	<div class="flex top-0 fixed w-full h-12 items-center sapphire_BG">
+		<div class="flex items-center space-x-1 text-white">
+			<!-- Icon -->
+			<div class="pl-6">
+				{#if currentSizeMenu === bigSizeMenu}
+					<button class="flex items-center" on:click={resizeInSmallMenu}>
+						<span class="material-symbols-outlined menu"> menu </span>
+					</button>
+				{:else if currentSizeMenu === smallSizeMenu}
+					<button class="flex items-center" on:click={resizeInBigMenu}>
+						<span class="material-symbols-outlined menu"> menu </span>
+					</button>
+				{/if}
+			</div>
+			<!-- Page -->
+			<div class="px-4">
+				<h1 class="text-xl font-medium pl-2">{currentPage}</h1>
+			</div>
 		</div>
 	</div>
+
+	<!-- Navigation Menu -->
+
+	<nav
+		class="flex flex-col h-full pt-14 columbia-blue_BG border-r-2"
+		style="width: {currentSizeMenu}px; border-color: rgba(0, 53, 89, 0.8);"
+	>
+		{#each pagesLibrary as page}
+			<a
+				href={page.path}
+				class="flex flex-row button {currentLinkPage === page.path
+					? 'bice-blue_BG text-slate-200'
+					: 'buttonH'}"
+				on:click={() => (currentPage = page.label)}
+			>
+				<span class="material-symbols-outlined p-2.5 pt-1 pr-3 iconSize">{page.icon}</span>
+				{#if currentSizeMenu === bigSizeMenu}
+					<p class="pt-1.5">{page.label}</p>
+				{/if}
+			</a>
+		{/each}
+	</nav>
 </div>
 
-<!-- Navigation Menu -->
-<nav
-	class="flex flex-col h-full pt-14 columbia-blue_BG border-r-2"
-	style="width: {currentSizeMenu}px; border-color: rgba(0, 53, 89, 0.8);"
->
-	{#each pagesLibrary as link}
-		<a
-			href={link.path}
-			class="flex flex-row button {currentLinkPage === link.path
-				? 'bice-blue_BG text-slate-200'
-				: 'buttonH'}"
-			on:click={() => (currentPage = link.label)}
-		>
-			<span class="material-symbols-outlined p-2 pt-1 pr-3 iconSize">{link.icon}</span>
-			{#if currentSizeMenu === bigSizeMenu}
-				<p class="pt-1.5">{link.label}</p>
-			{/if}
-		</a>
-	{/each}
-</nav>
+<!-- Content -->
+<Content {currentSizeMenu} {currentPage} />
 
 <style>
 	.button {
