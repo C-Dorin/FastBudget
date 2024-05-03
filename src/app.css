@@ -66,3 +66,17 @@ body {
 .red_TC {
 	color: rgb(244, 67, 54);
 }
+
+/***********************************************/
+
+.border-LT {
+	border-color: rgba(0, 53, 89, 0.8);
+}
+
+.border-green {
+	border-color: rgb(76, 175, 80);
+}
+
+.border-red {
+	border-color: rgb(244, 67, 54);
+}

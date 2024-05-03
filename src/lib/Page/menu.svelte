@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import Content from '$lib/Page/content.svelte';
+	import Content from '../../routes/+page.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [
@@ -69,10 +69,9 @@
 	</div>
 
 	<!-- Navigation Menu -->
-
 	<nav
-		class="flex flex-col h-full pt-14 columbia-blue_BG border-r-2"
-		style="width: {currentSizeMenu}px; border-color: rgba(0, 53, 89, 0.8);"
+		class="flex flex-col h-full pt-14 columbia-blue_BG border-r-2 borderLT"
+		style="width: {currentSizeMenu}px;"
 	>
 		{#each pagesLibrary as page}
 			<a
@@ -92,7 +91,9 @@
 </div>
 
 <!-- Content -->
-<Content {currentSizeMenu} {currentPage} />
+<div class="p-2">
+	<Content {currentSizeMenu} {currentPage} />
+</div>
 
 <style>
 	.button {
