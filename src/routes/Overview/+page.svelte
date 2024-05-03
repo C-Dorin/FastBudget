@@ -65,7 +65,7 @@
 <!-- **************************************** -->
 
 <!-- Cash_movements -->
-<div class="flex">
+<div class="flex space-x-2">
 	<!-- First Column -->
 	<div class="p-2 w-1/2 space-y-4">
 		<!-- Transactions -->
