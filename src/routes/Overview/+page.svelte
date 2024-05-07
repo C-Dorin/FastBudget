@@ -1,5 +1,12 @@
 <script>
+	export let data;
+
+	console.log(data);
 </script>
+
+{#each data.data as entries}
+	<p>{entries.name_account} = {entries.amount} {entries.currency}</p>
+{/each}
 
 <!-- Total Summary -->
 <div class="flex justify-between p-2 space-x-4 text-lg">
