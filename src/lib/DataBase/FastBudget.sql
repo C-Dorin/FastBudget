@@ -16,8 +16,9 @@ DROP TABLE IF EXISTS Transactions;
 CREATE TABLE Transactions (
 	id_tran INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_account INT NOT NULL,
+	amount_type ENUM('income', 'expense', 'transfer') NOT NULL,
+	category VARCHAR(50) NOT NULL,
 	id_account_consignee INT,
-	category VARCHAR(50),
 	img INT NOT NULL,
 	amount DECIMAL(20,2) NOT NULL,
 	currency VARCHAR(30) NOT NULL,
@@ -31,8 +32,9 @@ DROP TABLE IF EXISTS Scheduled_Transactions;
 CREATE TABLE Scheduled_Transactions (
 	id_sched_tran INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_account INT NOT NULL,
+	amount_type ENUM('income', 'expense', 'transfer') NOT NULL,
+	category VARCHAR(50) NOT NULL,
 	id_account_consignee INT,
-	category VARCHAR(50),
 	img INT NOT NULL,
 	amount DECIMAL(20,2) NOT NULL,
 	currency VARCHAR(30) NOT NULL,

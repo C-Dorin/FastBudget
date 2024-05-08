@@ -1,36 +1,38 @@
 <script>
+	let currency = '$';
+
 	export let data;
-
-	console.log(data);
 </script>
-
-{#each data.data as entries}
-	<p>{entries.name_account} = {entries.amount} {entries.currency}</p>
-{/each}
 
 <!-- Total Summary -->
 <div class="flex justify-between p-2 space-x-4 text-lg">
 	<!-- Backup -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			<p class="font-medium">Backup:</p>
-			<p class="green_TC">250.000 $</p>
+			{#each data.backup as entries}
+				<p class="font-medium">Backup:</p>
+				<p class="green_TC">{entries.amount} {currency}</p>
+			{/each}
 		</div>
 	</div>
 
 	<!-- Monthly -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			<p class="font-medium">Monthly:</p>
-			<p class="green_TC">10.000 $</p>
+			{#each data.monthly as entries}
+				<p class="font-medium">Monthly:</p>
+				<p class="green_TC">{entries.amount} {currency}</p>
+			{/each}
 		</div>
 	</div>
 
 	<!-- Investment -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			<p class="font-medium">Investment:</p>
-			<p class="green_TC">2.905.000 $</p>
+			{#each data.investment as entries}
+				<p class="font-medium">Investment:</p>
+				<p class="green_TC">{entries.amount} {currency}</p>
+			{/each}
 		</div>
 	</div>
 </div>
