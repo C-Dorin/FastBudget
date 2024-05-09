@@ -1,4 +1,6 @@
 <script>
+	import Mounth from './changeMonth.svelte';
+	import Values from './monthValues.svelte';
 	let currency = '$';
 
 	export let data;
@@ -9,30 +11,24 @@
 	<!-- Backup -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			{#each data.backup as entries}
-				<p class="font-medium">Backup:</p>
-				<p class="green_TC">{entries.amount} {currency}</p>
-			{/each}
+			<p class="font-medium">Backup:</p>
+			<p class="green_TC">{data.backup[0].amount} {currency}</p>
 		</div>
 	</div>
 
 	<!-- Monthly -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			{#each data.monthly as entries}
-				<p class="font-medium">Monthly:</p>
-				<p class="green_TC">{entries.amount} {currency}</p>
-			{/each}
+			<p class="font-medium">Monthly:</p>
+			<p class="green_TC">{data.monthly[0].amount} {currency}</p>
 		</div>
 	</div>
 
 	<!-- Investment -->
 	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 		<div class="flex justify-between">
-			{#each data.investment as entries}
-				<p class="font-medium">Investment:</p>
-				<p class="green_TC">{entries.amount} {currency}</p>
-			{/each}
+			<p class="font-medium">Investment:</p>
+			<p class="green_TC">{data.investment[0].amount} {currency}</p>
 		</div>
 	</div>
 </div>
@@ -42,32 +38,8 @@
 <!-- Monthly Summary -->
 <div class="p-2">
 	<div class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG">
-		<!-- Month -->
-		<div class="flex text-2xl justify-between">
-			<button class="flex items-center">
-				<span class="material-symbols-outlined"> arrow_back_ios </span>
-			</button>
-			<p class="pb-2 border-b border-LT" style="width: 40%;">May 2024</p>
-			<button class="flex items-center">
-				<span class="material-symbols-outlined"> arrow_forward_ios </span>
-			</button>
-		</div>
-
-		<!-- Values -->
-		<div class="flex justify-between px-6 pt-6">
-			<div>
-				<p class="font-semibold">Income</p>
-				<p class="green_TC">13.050 $</p>
-			</div>
-			<div>
-				<p class="font-semibold">Expenses</p>
-				<p class="red_TC">9.890 $</p>
-			</div>
-			<div>
-				<p class="font-semibold">Total</p>
-				<p class="green_TC">3.160 $</p>
-			</div>
-		</div>
+		<Mounth />
+		<Values {data} />
 	</div>
 </div>
 <!-- /Monthly Summary -->
