@@ -1,6 +1,9 @@
 <script>
 	import '../app.css';
 	import { page } from '$app/stores';
+	import { addIncomeStatus, addExpenseStatus } from './Overview/localStore';
+	import IncomeForm from './Overview/incomeForm.svelte';
+	import ExpenseForm from './Overview/expenseForm.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [
@@ -94,29 +97,18 @@
 	</nav>
 </div>
 
+{#if $addIncomeStatus}
+	<IncomeForm />
+{/if}
+{#if $addExpenseStatus}
+	<ExpenseForm />
+{/if}
+
 <!-- Content -->
 <div class="p-2">
 	<div class="pt-12 {currentSizeMenu === 56 ? 'pl-14' : 'pl-64'}">
 		<slot />
 	</div>
-</div>
-
-<!-- Buttons for adding Transactions-->
-<!-- Add Expense -->
-<div class="fixed bottom-8 right-8">
-	<button
-		class="p-2 border rounded-full text-2xl w-16 h-16 red_BG border-red text-slate-200 shadow-xl"
-	>
-		<span class="material-symbols-outlined pt-2"> remove </span>
-	</button>
-</div>
-<!-- Add Income -->
-<div class="fixed bottom-28 right-8">
-	<button
-		class="p-2 border rounded-full text-2xl w-16 h-16 green_BG border-green text-slate-200 shadow-xl"
-	>
-		<span class="material-symbols-outlined pt-2"> add </span>
-	</button>
 </div>
 
 <style>
@@ -132,13 +124,5 @@
 
 	.buttonH:hover {
 		background-color: rgb(130, 165, 190);
-	}
-
-	.border-green {
-		border-color: rgb(63, 145, 66);
-	}
-
-	.border-red {
-		border-color: rgb(143, 39, 31);
 	}
 </style>

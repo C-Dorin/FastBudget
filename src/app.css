@@ -5,10 +5,14 @@
 body {
 	overflow: hidden;
 	overflow-y: auto;
-	background-color: rgba(185, 214, 242, 0.5);
+	background-color: rgb(220, 235, 249); /*rgba(185, 214, 242, 0.5)*/
 }
 
 /***** Default Background Colors *****/
+.content-Light_BG {
+	background-color: rgb(220, 235, 249);
+}
+
 .columbia-blue_BG {
 	background-color: rgb(185, 214, 242);
 }

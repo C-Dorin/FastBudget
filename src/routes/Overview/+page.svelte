@@ -1,9 +1,9 @@
 <script>
 	import Mounth from './changeMonth.svelte';
-	import Values from './monthValues.svelte';
-	let currency = '$';
+	import Values from './monthlyValues.svelte';
 
 	export let data;
+	let currency = '$';
 </script>
 
 <!-- Total Summary -->
