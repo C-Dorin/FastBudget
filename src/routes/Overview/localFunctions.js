@@ -39,3 +39,33 @@ export function formatNumber(value) {
 	let number = Math.abs(value).toFixed(2);
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+export async function addTransaction(
+	id_account,
+	amount_type,
+	category,
+	img,
+	amount,
+	currency,
+	date_tran,
+	note
+) {
+	const data = JSON.stringify({
+		id_account,
+		amount_type,
+		category,
+		img,
+		amount,
+		currency,
+		date_tran,
+		note
+	});
+	await fetch('api/addTransaction', {
+		method: 'POST',
+		body: data,
+		headers: {
+			'content-type': 'application/json'
+		}
+	});
+	location.reload();
+}

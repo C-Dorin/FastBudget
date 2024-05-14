@@ -4,6 +4,20 @@
 	import { formatNumber } from './localFunctions';
 
 	export let data;
+	let colorTotal = '';
+
+	switch (true) {
+		case data.accounts.amount === 0:
+			colorTotal = 'text-white';
+			break;
+		case data.accounts.amount > 0:
+			colorTotal = 'green_TC';
+			break;
+		case data.accounts.amount < 0:
+			colorTotal = 'red_TC';
+			break;
+	}
+
 	let currency = '$';
 </script>
 
@@ -97,13 +111,7 @@
 				{#each data.accounts as account, i}
 					<div class="flex text-xl p-1 justify-between {i != 6 ? 'border-b' : ''} border-LT pl-1">
 						<p>{account.name_account}</p>
-						{#if account.amount === 0}
-							<p class="text-white">{formatNumber(account.amount)} {currency}</p>
-						{:else if account.amount > 0}
-							<p class="green_TC">{formatNumber(account.amount)} {currency}</p>
-						{:else if account.amount < 0}
-							<p class="red_TC">{formatNumber(account.amount)} {currency}</p>
-						{/if}
+						<p class={colorTotal}>{formatNumber(account.amount)} {currency}</p>
 					</div>
 				{/each}
 			</div>

@@ -3,6 +3,20 @@
 	export let data;
 
 	let total = data.income[0].totalIncome - data.expense[0].totalExpense;
+	let colorTotal = '';
+
+	switch (true) {
+		case total === 0:
+			colorTotal = 'text-white';
+			break;
+		case total > 0:
+			colorTotal = 'green_TC';
+			break;
+		case total < 0:
+			colorTotal = 'red_TC';
+			break;
+	}
+
 	let currency = '$';
 </script>
 
@@ -17,12 +31,6 @@
 	</div>
 	<div>
 		<p class="font-semibold">Total</p>
-		{#if total === 0}
-			<p class="text-white">{formatNumber(total)} {currency}</p>
-		{:else if total > 0}
-			<p class="green_TC">{formatNumber(total)} {currency}</p>
-		{:else if total < 0}
-			<p class="red_TC">{formatNumber(total)} {currency}</p>
-		{/if}
+		<p class={colorTotal}>{formatNumber(total)} {currency}</p>
 	</div>
 </div>

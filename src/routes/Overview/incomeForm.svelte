@@ -2,14 +2,24 @@
 	// @ts-nocheck
 
 	import { addIncomeStatus } from './localStore.js';
+	import { addTransaction } from './localFunctions.js';
 
 	// Variables in Form
-	let account;
+	let id_account;
+	let amount_type = 'income';
+	let img = 2;
 	let category;
+	let currency = '$';
 	let amount;
 	let date = new Date().toISOString().split('T')[0];
 	let time = new Date().toTimeString().split(' ')[0].split(':').slice(0, 2).join(':');
+	let date_tran = date + ' ' + time;
 	let note;
+
+	function form(id_account, amount_type, category, img, amount, currency, date_tran, note) {
+		addTransaction(id_account, amount_type, category, img, amount, currency, date_tran, note);
+		$addIncomeStatus = false;
+	}
 </script>
 
 <!-- Add Income Form-->
@@ -26,20 +36,20 @@
 				<div class="flex space-x-4">
 					<div class="pb-2">
 						<p class="font-semibold">Account</p>
-						<select class="border-LT cell" bind:value={account}>
-							<option value="volvo">Wallet</option>
-							<option value="saab">Card</option>
-							<option value="mercedes">Backup</option>
-							<option value="audi">Cheesebuger</option>
+						<select class="border-LT cell" bind:value={id_account}>
+							<option value="1">Wallet</option>
+							<option value="2">Card</option>
+							<option value="3">Backup</option>
+							<option value="4">Cheesebuger</option>
 						</select>
 					</div>
 					<div class="pb-2">
 						<p class="font-semibold">Category</p>
 						<select class="border-LT cell" bind:value={category}>
-							<option value="volvo">Salariu</option>
-							<option value="saab">Bursa</option>
-							<option value="mercedes">Pensie</option>
-							<option value="audi">Economii personale</option>
+							<option value="Salariu">Salariu</option>
+							<option value="Bursa">Bursa</option>
+							<option value="Pensie">Pensie</option>
+							<option value="Economii personale">Economii personale</option>
 						</select>
 					</div>
 				</div>
@@ -75,7 +85,8 @@
 			</button>
 			<button
 				class="p-2 rounded-lg green_BG text-white w-20 buttonSave"
-				on:click={() => ($addIncomeStatus = false)}
+				on:click={() =>
+					form(id_account, amount_type, category, img, amount, currency, date_tran, note)}
 			>
 				<p>Save</p>
 			</button>

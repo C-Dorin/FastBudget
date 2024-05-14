@@ -52,7 +52,7 @@ export async function load() {
 	// ===== Transactions ===== //
 	// transactions
 	let lastTransactions = await mysqlconnection
-		.query('SELECT * FROM Transactions ORDER BY date_tran DESC, id_tran DESC LIMIT 5;')
+		.query('SELECT * FROM Transactions ORDER BY date_tran DESC, id_tran DESC LIMIT 5')
 		.then(function ([rows]) {
 			return rows;
 		});
@@ -62,7 +62,7 @@ export async function load() {
 	// ===== Accounts ===== //
 	// accounts
 	let firstAccounts = await mysqlconnection
-		.query('SELECT * FROM Accounts ORDER BY id_account LIMIT 7;')
+		.query('SELECT * FROM Accounts ORDER BY id_account LIMIT 7')
 		.then(function ([rows]) {
 			return rows;
 		});
