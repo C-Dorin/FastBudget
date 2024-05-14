@@ -1,173 +1,128 @@
 <script>
 	import Mounth from './changeMonth.svelte';
 	import Values from './monthlyValues.svelte';
+	import { formatNumber } from './localFunctions';
 
 	export let data;
 	let currency = '$';
 </script>
 
 <!-- Total Summary -->
-<div class="flex justify-between p-2 space-x-4 text-lg">
-	<!-- Backup -->
-	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
-		<div class="flex justify-between">
-			<p class="font-medium">Backup:</p>
-			<p class="green_TC">{data.backup[0].amount} {currency}</p>
-		</div>
-	</div>
-
-	<!-- Monthly -->
-	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
-		<div class="flex justify-between">
-			<p class="font-medium">Monthly:</p>
-			<p class="green_TC">{data.monthly[0].amount} {currency}</p>
-		</div>
-	</div>
-
-	<!-- Investment -->
-	<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
-		<div class="flex justify-between">
-			<p class="font-medium">Investment:</p>
-			<p class="green_TC">{data.investment[0].amount} {currency}</p>
-		</div>
-	</div>
-</div>
-<!-- /Total Summary -->
-<!-- **************************************** -->
-
-<!-- Monthly Summary -->
 <div class="p-2">
-	<div class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG">
-		<Mounth />
-		<Values {data} />
-	</div>
-</div>
-<!-- /Monthly Summary -->
-<!-- **************************************** -->
-
-<!-- Cash_movements -->
-<div class="flex space-x-2">
-	<!-- First Column -->
-	<div class="p-2 w-1/2 space-y-4">
-		<!-- Transactions -->
-		<div
-			class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-2"
-		>
-			<p class="text-2xl">Transactions</p>
-			<!-- First Transaction -->
-			<div
-				class="flex text-xl p-1 pr-2 justify-between border-r-4 border-red transaction-red_BG rounded-s-lg pl-1"
-			>
-				<p>Fuel</p>
-				<p>230 $</p>
-			</div>
-
-			<!-- Second Transaction -->
-			<div
-				class="flex text-xl p-1 pr-2 justify-between border-r-4 border-red transaction-red_BG rounded-s-lg pl-1"
-			>
-				<p>Bar</p>
-				<p>30 $</p>
-			</div>
-
-			<!-- Third Tranzaction -->
-			<div
-				class="flex text-xl p-1 pr-2 justify-between border-r-4 border-green transaction-green_BG rounded-s-lg"
-			>
-				<p class="pl-1">Dog</p>
-				<p>135 $</p>
-			</div>
-
-			<!-- Fourth Tranzaction -->
-			<div
-				class="flex text-xl p-1 pr-2 justify-between border-r-4 border-red transaction-red_BG rounded-s-lg"
-			>
-				<p class="pl-1">Cat</p>
-				<p>74 $</p>
-			</div>
-
-			<!-- Fifth Tranzaction -->
-			<div
-				class="flex text-xl p-1 pr-2 justify-between border-r-4 border-green transaction-green_BG rounded-s-lg"
-			>
-				<p class="pl-1">Fish</p>
-				<p>37 $</p>
+	<div class="flex justify-between p-2 space-x-4 text-lg">
+		<!-- Backup -->
+		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
+			<div class="flex justify-between">
+				<p class="font-medium">Backup:</p>
+				<p class="green_TC">{data.backup[0].amount} {currency}</p>
 			</div>
 		</div>
-		<!-- /Transactions -->
-		<!-- **************************************** -->
 
-		<!-- Total Summary Diagram -->
-		<div
-			class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
-		>
-			<p class="text-2xl">Balance</p>
-			<p class="text-8xl pt-10">Diagram 🔨</p>
+		<!-- Monthly -->
+		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
+			<div class="flex justify-between">
+				<p class="font-medium">Monthly:</p>
+				<p class="green_TC">{data.monthly[0].amount} {currency}</p>
+			</div>
 		</div>
-		<!-- /Total Summary Diagram -->
-		<!-- **************************************** -->
+
+		<!-- Investment -->
+		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
+			<div class="flex justify-between">
+				<p class="font-medium">Investment:</p>
+				<p class="green_TC">{data.investment[0].amount} {currency}</p>
+			</div>
+		</div>
 	</div>
-	<!-- /First Column -->
+	<!-- /Total Summary -->
 	<!-- **************************************** -->
 
-	<!-- Second Column -->
-	<div class="p-2 w-1/2 space-y-4">
-		<!-- Accounts -->
+	<!-- Monthly Summary -->
+	<div class="p-2">
 		<div
-			class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
+			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
 		>
-			<p class="text-2xl">Accounts</p>
-			<!-- First Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Necessity</p>
-				<p class="green_TC">2.300 $</p>
-			</div>
-			<!-- Second Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Distraction</p>
-				<p class="green_TC">560 $</p>
-			</div>
-			<!-- Third Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Savings</p>
-				<p class="green_TC">43.890 $</p>
-			</div>
-			<!-- Fourth Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Education</p>
-				<p class="green_TC">10.000 $</p>
-			</div>
-			<!-- Fifth Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Investment</p>
-				<p class="red_TC">450 $</p>
-			</div>
-			<!-- Sixth Account -->
-			<div class="flex text-xl p-1 justify-between border-b border-LT pl-1">
-				<p>Backup</p>
-				<p class="green_TC">450.000.000 $</p>
-			</div>
-			<!-- Seventh Account -->
-			<div class="flex text-xl p-1 justify-between pl-1">
-				<p>Donation</p>
-				<p class="green_TC">8.245 $</p>
-			</div>
+			<Mounth />
+			<Values {data} />
 		</div>
-		<!-- /Accounts -->
+	</div>
+	<!-- /Monthly Summary -->
+	<!-- **************************************** -->
+
+	<!-- Cash_movements -->
+	<div class="flex space-x-2">
+		<!-- First Column -->
+		<div class="p-2 w-1/2 space-y-4">
+			<!-- Transactions -->
+			<div
+				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-2"
+			>
+				<p class="text-2xl">Transactions</p>
+				<!-- First Transaction -->
+				{#each data.transactions as transaction}
+					<div
+						class="flex text-xl p-1 pr-2 justify-between border-r-4 rounded-s-lg pl-1
+					{transaction.amount_type === 'income'
+							? 'border-green transaction-green_BG'
+							: 'border-red transaction-red_BG'}"
+					>
+						<p class="pl-1">{transaction.category}</p>
+						<p>{formatNumber(transaction.amount)} $</p>
+					</div>
+				{/each}
+			</div>
+			<!-- /Transactions -->
+			<!-- **************************************** -->
+
+			<!-- Total Summary Diagram -->
+			<div
+				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
+			>
+				<p class="text-2xl">Balance</p>
+				<p class="text-8xl pt-10">Diagram 🔨</p>
+			</div>
+			<!-- /Total Summary Diagram -->
+			<!-- **************************************** -->
+		</div>
+		<!-- /First Column -->
 		<!-- **************************************** -->
 
-		<!-- Budgets -->
-		<div
-			class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
-		>
-			<p class="text-2xl">Budgets</p>
-			<p class="text-8xl pt-10">Budgets 🔨</p>
+		<!-- Second Column -->
+		<div class="p-2 w-1/2 space-y-4">
+			<!-- Accounts -->
+			<div
+				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
+			>
+				<p class="text-2xl">Accounts</p>
+				{#each data.accounts as account, i}
+					<div class="flex text-xl p-1 justify-between {i != 6 ? 'border-b' : ''} border-LT pl-1">
+						<p>{account.name_account}</p>
+						{#if account.amount === 0}
+							<p class="text-white">{formatNumber(account.amount)} {currency}</p>
+						{:else if account.amount > 0}
+							<p class="green_TC">{formatNumber(account.amount)} {currency}</p>
+						{:else if account.amount < 0}
+							<p class="red_TC">{formatNumber(account.amount)} {currency}</p>
+						{/if}
+					</div>
+				{/each}
+			</div>
+			<!-- /Accounts -->
+			<!-- **************************************** -->
+
+			<!-- Budgets -->
+			<div
+				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
+			>
+				<p class="text-2xl">Budgets</p>
+				<p class="text-8xl pt-10">Budgets 🔨</p>
+			</div>
+			<!-- /Budgets -->
+			<!-- **************************************** -->
 		</div>
-		<!-- /Budgets -->
+		<!-- /Second Column -->
 		<!-- **************************************** -->
 	</div>
-	<!-- /Second Column -->
-	<!-- **************************************** -->
 </div>
 
 <!-- /Cash_movements -->

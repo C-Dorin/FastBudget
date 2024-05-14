@@ -33,3 +33,9 @@ export function decreaseMonth() {
 		});
 	});
 }
+
+// Make easier to read numbers
+export function formatNumber(value) {
+	let number = Math.abs(value).toFixed(2);
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

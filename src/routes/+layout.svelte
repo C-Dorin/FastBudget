@@ -105,10 +105,8 @@
 {/if}
 
 <!-- Content -->
-<div class="p-2">
-	<div class="pt-12 {currentSizeMenu === 56 ? 'pl-14' : 'pl-64'}">
-		<slot />
-	</div>
+<div class="pt-12 {currentSizeMenu === 56 ? 'pl-14' : 'pl-64'}">
+	<slot />
 </div>
 
 <style>

@@ -43,19 +43,39 @@ export async function load() {
 		[month, year]
 	);
 
+	// expense
 	let monthlyExpense = await mysqlconnection.query(
 		'SELECT SUM(amount) as totalExpense FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = "expense"',
 		[month, year]
 	);
 
-	console.log(monthlyIncome[0]);
-	console.log(month);
+	// ===== Transactions ===== //
+	// transactions
+	let lastTransactions = await mysqlconnection
+		.query('SELECT * FROM Transactions ORDER BY date_tran DESC, id_tran DESC LIMIT 5;')
+		.then(function ([rows]) {
+			return rows;
+		});
+
+	// ===== Total Summary Diagram ===== //
+
+	// ===== Accounts ===== //
+	// accounts
+	let firstAccounts = await mysqlconnection
+		.query('SELECT * FROM Accounts ORDER BY id_account LIMIT 7;')
+		.then(function ([rows]) {
+			return rows;
+		});
+
+	// ===== Budgets ===== //
 
 	return {
 		backup: backupBalance,
 		monthly: monthlyBalance,
 		investment: investmentBalance,
 		income: monthlyIncome[0],
-		expense: monthlyExpense[0]
+		expense: monthlyExpense[0],
+		transactions: lastTransactions,
+		accounts: firstAccounts
 	};
 }
