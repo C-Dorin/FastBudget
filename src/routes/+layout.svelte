@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
 	import { page } from '$app/stores';
-	import { addIncomeStatus, addExpenseStatus } from './Overview/localStore';
+	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
 	import IncomeForm from './Overview/incomeForm.svelte';
 	import ExpenseForm from './Overview/expenseForm.svelte';
 
@@ -99,8 +99,7 @@
 
 {#if $addIncomeStatus}
 	<IncomeForm />
-{/if}
-{#if $addExpenseStatus}
+{:else if $addExpenseStatus}
 	<ExpenseForm />
 {/if}
 

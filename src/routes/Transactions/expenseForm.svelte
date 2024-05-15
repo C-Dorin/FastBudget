@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { addExpenseStatus } from '$lib/Components/globalStore.js';
+	import { addExpenseStatus } from './localStore.js';
 	import { addTransaction } from './localFunctions.js';
 
 	// Variables in Form
