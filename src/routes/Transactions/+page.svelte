@@ -54,7 +54,6 @@
 			if ($optionType >= options.length) {
 				$optionType = 0;
 			}
-			console.log($optionType);
 		}
 	}
 </script>
@@ -118,20 +117,22 @@
 	<!-- **************************************** -->
 
 	<!-- Transactions -->
-	{#each data.transactions as [transaction]}
+	{#each data.transactions as [transactionDate, entries]}
 		<div class="p-2 px-52 pt-4">
 			<div
 				class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
 			>
-				<p class="text-2xl">{formatDayTran(transaction)}</p>
-				<div class="flex justify-between py-2 border-b border-LT green_TC">
-					<p>Bar</p>
-					<p>25 $</p>
-				</div>
-				<div class="flex justify-between py-2 red_TC">
-					<p>Coffee</p>
-					<p>40 $</p>
-				</div>
+				<p class="text-2xl">{formatDayTran(transactionDate)}</p>
+				{#each entries as entry, i}
+					<div
+						class="flex justify-between py-2 {i != entries.length - 1
+							? 'border-b border-LT'
+							: ''} {entry.amount_type === 'income' ? 'green_TC' : 'red_TC'}"
+					>
+						<p>{entry.category}</p>
+						<p>{entry.amount} $</p>
+					</div>
+				{/each}
 			</div>
 		</div>
 	{/each}
