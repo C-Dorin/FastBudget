@@ -1,35 +1,40 @@
 <script>
 	// @ts-nocheck
 
-	import { addIncomeStatus } from '$lib/Components/globalStore.js';
-	import { addTransaction } from './localFunctions.js';
+	import { addExpenseStatus } from '$lib/Components/globalStore';
+	import { addTransaction } from '../../../routes/Overview/localFunctions.js';
 
 	// Variables in Form
 	let id_account;
-	let amount_type = 'income';
-	let img = 2;
+	let amount_type = 'expense';
+	let img = 4;
 	let category;
 	let currency = '$';
 	let amount;
-	let date = new Date().toISOString().split('T')[0];
+	let date = new Date().toLocaleDateString('eu-MD');
 	let time = new Date().toTimeString().split(' ')[0].split(':').slice(0, 2).join(':');
-	let date_tran = date + ' ' + time;
 	let note;
 
-	function form(id_account, amount_type, category, img, amount, currency, date_tran, note) {
+	function form() {
+		function transformDate(date) {
+			let [day, month, year] = date.split('/');
+			return year + '.' + month + '.' + day;
+		}
+
+		let date_tran = transformDate(date) + ' ' + time;
 		addTransaction(id_account, amount_type, category, img, amount, currency, date_tran, note);
-		$addIncomeStatus = false;
+		$addExpenseStatus = false;
 	}
 </script>
 
-<!-- Add Income Form-->
+<!-- Add Expense Form-->
 <div
 	class="flex fixed w-full h-full justify-center items-center"
 	style="background-color: rgba(0,0,0,0.5);"
 >
 	<div class="flex flex-col formSize border rounded-lg shadow-lg content-Light_BG">
 		<div class="text-3xl font-semibold pb-5 p-2 pt-4">
-			<p class="text-center">NEW INCOME</p>
+			<p class="text-center">NEW EXPENSE</p>
 		</div>
 		<form class="p-3">
 			<div class="flex flex-col">
@@ -46,21 +51,26 @@
 					<div class="pb-2">
 						<p class="font-semibold">Category</p>
 						<select class="border-LT cell" bind:value={category}>
-							<option value="Salariu">Salariu</option>
-							<option value="Bursa">Bursa</option>
-							<option value="Pensie">Pensie</option>
-							<option value="Economii personale">Economii personale</option>
+							<option value="Bar">Bar</option>
+							<option value="GYM">GYM</option>
+							<option value="McDonald's">McDonald's</option>
+							<option value="Energy Bill">Energy Bill</option>
 						</select>
 					</div>
 				</div>
 				<div class="flex space-x-4">
 					<div class="pb-2">
 						<p class="font-semibold">Date</p>
-						<input class="border-LT cell" type="date" bind:value={date} />
+						<input
+							class="border-LT cell"
+							type="datetime"
+							placeholder="dd/mm/yyyy"
+							bind:value={date}
+						/>
 					</div>
 					<div class="pb-2">
 						<p class="font-semibold">Time</p>
-						<input class="border-LT cell" type="time" bind:value={time} />
+						<input class="border-LT cell" type="datetime" placeholder="hh:mm" bind:value={time} />
 					</div>
 				</div>
 			</div>
@@ -78,16 +88,12 @@
 		</form>
 		<div class="flex justify-center space-x-4 text-center pt-1">
 			<button
-				class="p-2 border border-green rounded-lg green_TC w-20 buttonClose"
-				on:click={() => ($addIncomeStatus = false)}
+				class="p-2 border border-red rounded-lg red_TC w-20 buttonClose"
+				on:click={() => ($addExpenseStatus = false)}
 			>
 				<p>Cancel</p>
 			</button>
-			<button
-				class="p-2 rounded-lg green_BG text-white w-20 buttonSave"
-				on:click={() =>
-					form(id_account, amount_type, category, img, amount, currency, date_tran, note)}
-			>
+			<button class="p-2 rounded-lg red_BG text-white w-20 buttonSave" on:click={() => form()}>
 				<p>Save</p>
 			</button>
 		</div>
@@ -116,10 +122,10 @@
 	}
 
 	.buttonSave:hover {
-		background-color: rgb(57, 131, 59);
+		background-color: rgb(205, 56, 45);
 	}
 
 	.buttonClose:hover {
-		background-color: rgba(76, 175, 80, 0.3);
+		background-color: rgba(244, 67, 54, 0.3);
 	}
 </style>

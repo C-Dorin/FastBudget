@@ -8,3 +8,4 @@ export let addExpenseStatus = writable(false);
 export let sortBy = writable('Date');
 export let optionCategory = writable(1);
 export let optionType = writable(1);
+export let optionSortBy = writable(0);

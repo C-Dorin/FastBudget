@@ -109,7 +109,11 @@
 			>
 				<p class="text-2xl">Accounts</p>
 				{#each data.accounts as account, i}
-					<div class="flex text-xl p-1 justify-between {i != 6 ? 'border-b' : ''} border-LT pl-1">
+					<div
+						class="flex text-xl p-1 justify-between {i != data.accounts.length - 1
+							? 'border-b'
+							: ''} border-LT pl-1"
+					>
 						<p>{account.name_account}</p>
 						<p class={colorTotal}>{formatNumber(account.amount)} {currency}</p>
 					</div>

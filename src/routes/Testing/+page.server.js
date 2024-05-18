@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { ConnectionDB } from '$lib/Database/mySQL';
-import { monthValue, formatDayTran } from './localFunctions';
+import { monthValue, formatDayTran } from '../Transactions/localFunctions';
 import { optionSortBy } from '$lib/Components/globalStore';
+import { transactionStore } from './Object';
 
 export async function load() {
 	let mysqlconnection = await ConnectionDB();
@@ -39,17 +40,11 @@ export async function load() {
 		'SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? ORDER BY date_tran DESC, id_tran DESC';
 	const dateAsc =
 		'SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? ORDER BY date_tran ASC, id_tran ASC';
-	const category =
-		"SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND category = 'Salariu' ORDER BY date_tran DESC, id_tran DESC";
-	const typeIncome =
-		"SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = 'income' ORDER BY date_tran DESC, id_tran DESC";
-	const typeExpense =
-		"SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = 'expense' ORDER BY date_tran DESC, id_tran DESC";
-	const typeTransfer =
-		"SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = 'transfer' ORDER BY date_tran DESC, id_tran DESC";
 
-	const tranQuery = [dateDesc, dateAsc, category, typeIncome, typeExpense, typeTransfer];
+	const tranQuery = [dateDesc, dateAsc];
 	const [dateDescendingTran] = await mysqlconnection.query(tranQuery[option], [month, year]);
+
+	transactionStore.set(dateDescendingTran);
 
 	const grouped_results = new Map();
 	dateDescendingTran.forEach((row) => {

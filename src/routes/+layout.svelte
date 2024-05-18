@@ -2,8 +2,8 @@
 	import '../app.css';
 	import { page } from '$app/stores';
 	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
-	import IncomeForm from './Overview/incomeForm.svelte';
-	import ExpenseForm from './Overview/expenseForm.svelte';
+	import IncomeForm from '$lib/Forms/Transactions/incomeForm.svelte';
+	import ExpenseForm from '$lib/Forms/Transactions/expenseForm.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [
@@ -14,7 +14,8 @@
 		{ path: '/Budgets', icon: 'inventory_2', label: 'Budgets' },
 		{ path: '/Debts', icon: 'timelapse', label: 'Debts' },
 		{ path: '/Calendar', icon: 'calendar_month', label: 'Calendar' },
-		{ path: '/Settings', icon: 'settings', label: 'Settings' }
+		{ path: '/Settings', icon: 'settings', label: 'Settings' },
+		{ path: '/Testing', icon: 'engineering', label: 'Testing' }
 	];
 
 	/** @type {string} */
