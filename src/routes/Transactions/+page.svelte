@@ -125,9 +125,8 @@
 				<p class="text-2xl">{formatDayTran(transactionDate)}</p>
 				{#each entries as entry, i}
 					<div
-						class="flex justify-between py-2 {i != entries.length - 1
-							? 'border-b border-LT'
-							: ''} {entry.amount_type === 'income' ? 'green_TC' : 'red_TC'}"
+						class="flex justify-between py-2 {i != entries.length - 1 ? 'border-b border-LT' : ''}
+							{entry.type_tran === 'income' ? 'green_TC' : 'red_TC'}"
 					>
 						<p>{entry.category}</p>
 						<p>{entry.amount} $</p>

@@ -2,18 +2,29 @@
 	// @ts-nocheck
 
 	import { addIncomeStatus } from '$lib/Components/globalStore';
+	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
+	import { selectedAccountName, selectedAccountIcon } from '$lib/Components/globalStore';
+	import { selectedCategoryName, selectedCategoryIcon } from '$lib/Components/globalStore';
 	import { addTransaction } from '../../../routes/Overview/localFunctions.js';
 
 	// Variables in Form
 	let id_account;
-	let amount_type = 'income';
-	let img = 2;
-	let category;
-	let currency = '$';
+	let id_category;
+	let id_currency = 1;
 	let amount;
 	let date = new Date().toLocaleDateString('eu-MD');
 	let time = new Date().toTimeString().split(' ')[0].split(':').slice(0, 2).join(':');
 	let note;
+
+	function defaultButton() {
+		$addIncomeStatus = false;
+		// Account
+		$selectedAccountName = '';
+		$selectedAccountIcon = '';
+		// Category
+		$selectedCategoryName = '';
+		$selectedCategoryIcon = '';
+	}
 
 	function form() {
 		function transformDate(date) {
@@ -22,8 +33,8 @@
 		}
 
 		let date_tran = transformDate(date) + ' ' + time;
-		addTransaction(id_account, amount_type, category, img, amount, currency, date_tran, note);
-		$addIncomeStatus = false;
+		addTransaction(id_account, id_category, amount, id_currency, date_tran, note);
+		defaultButton();
 	}
 </script>
 
@@ -32,7 +43,7 @@
 	class="flex fixed w-full h-full justify-center items-center"
 	style="background-color: rgba(0,0,0,0.5);"
 >
-	<div class="flex flex-col formSize border rounded-lg shadow-lg content-Light_BG">
+	<div class="flex flex-col formSize rounded-lg shadow-lg columbia-blue_BG">
 		<div class="text-3xl font-semibold pb-5 p-2 pt-4">
 			<p class="text-center">NEW INCOME</p>
 		</div>
@@ -41,50 +52,80 @@
 				<div class="flex space-x-4">
 					<div class="pb-2">
 						<p class="font-semibold">Account</p>
-						<select class="border-LT cell" bind:value={id_account}>
-							<option value="1">Wallet</option>
-							<option value="2">Card</option>
-							<option value="3">Backup</option>
-							<option value="4">Cheesebuger</option>
-						</select>
+						<button
+							class="flex border-LT cell content-Light_BG"
+							on:click={() => ($addAccountStatus = true)}
+						>
+							{#if $selectedAccountName === ''}
+								<p class="text-gray-400">Select Account</p>
+							{:else}
+								<span class="material-symbols-outlined pr-2 pt-1">{$selectedAccountIcon}</span>
+								<p>{$selectedAccountName}</p>
+							{/if}
+						</button>
 					</div>
 					<div class="pb-2">
 						<p class="font-semibold">Category</p>
-						<select class="border-LT cell" bind:value={category}>
-							<option value="Salariu">Salariu</option>
-							<option value="Bursa">Bursa</option>
-							<option value="Pensie">Pensie</option>
-							<option value="Economii personale">Economii personale</option>
-						</select>
+						<button
+							class="flex border-LT cell content-Light_BG"
+							on:click={() => ($addCategoryStatus = true)}
+						>
+							{#if $selectedCategoryName === ''}
+								<p class="text-gray-400">Select Category</p>
+							{:else}
+								<span class="material-symbols-outlined pr-2 pt-1">{$selectedCategoryIcon}</span>
+								<p>{$selectedCategoryName}</p>
+							{/if}
+						</button>
 					</div>
 				</div>
 				<div class="flex space-x-4">
 					<div class="pb-2">
 						<p class="font-semibold">Date</p>
-						<input class="border-LT cell" type="date" bind:value={date} />
+						<input
+							class="border-LT cell content-Light_BG"
+							type="datetime"
+							placeholder="dd/mm/yyyy"
+							bind:value={date}
+						/>
 					</div>
 					<div class="pb-2">
 						<p class="font-semibold">Time</p>
-						<input class="border-LT cell" type="time" bind:value={time} />
+						<input
+							class="border-LT cell content-Light_BG"
+							type="datetime"
+							placeholder="hh:mm"
+							bind:value={time}
+						/>
 					</div>
 				</div>
 			</div>
 			<div class="pb-2">
 				<p class="font-semibold">Amount</p>
 				<div class="flex">
-					<input class="border-LT cell" type="number" bind:value={amount} />
+					<input
+						class="border-LT cell content-Light_BG"
+						type="number"
+						placeholder="0.00"
+						bind:value={amount}
+					/>
 					<p class="text-2xl pl-2 pt-1">$</p>
 				</div>
 			</div>
 			<div class="pb-2">
 				<p class="font-semibold">Note (Optional)</p>
-				<input class="border-LT note cell" type="text" bind:value={note} />
+				<input
+					class="border-LT note cell content-Light_BG"
+					type="text"
+					placeholder="Note"
+					bind:value={note}
+				/>
 			</div>
 		</form>
 		<div class="flex justify-center space-x-4 text-center pt-1">
 			<button
 				class="p-2 border border-green rounded-lg green_TC w-20 buttonClose"
-				on:click={() => ($addIncomeStatus = false)}
+				on:click={() => defaultButton()}
 			>
 				<p>Cancel</p>
 			</button>
@@ -109,11 +150,11 @@
 		padding: 0.25rem; /* 4px */ /* p-1 */
 		padding-left: 0.5rem; /* 8px */ /* pl-2 */
 		font-weight: 300; /* font-light */
-		width: 277px;
+		width: 280px;
 	}
 
 	.note {
-		width: 570px;
+		width: 576px;
 	}
 
 	.buttonSave:hover {

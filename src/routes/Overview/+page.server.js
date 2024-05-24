@@ -39,20 +39,22 @@ export async function load() {
 	// ===== Monthly Summary ===== //
 	// income
 	let monthlyIncome = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalIncome FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = "income"',
+		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "income"',
 		[month, year]
 	);
 
 	// expense
 	let monthlyExpense = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalExpense FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = "expense"',
+		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "expense"',
 		[month, year]
 	);
 
 	// ===== Transactions ===== //
 	// transactions
 	let lastTransactions = await mysqlconnection
-		.query('SELECT * FROM Transactions ORDER BY date_tran DESC, id_tran DESC LIMIT 5')
+		.query(
+			'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.name_category as category FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category ORDER BY date_tran DESC, id_tran DESC LIMIT 5'
+		)
 		.then(function ([rows]) {
 			return rows;
 		});

@@ -23,20 +23,20 @@ export async function load() {
 	// ===== Monthly Summary ===== //
 	// income
 	let monthlyIncome = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalIncome FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = "income"',
+		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "income"',
 		[month, year]
 	);
 
 	// expense
 	let monthlyExpense = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalExpense FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = "expense"',
+		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "expense"',
 		[month, year]
 	);
 
 	// ===== Transactions ===== //
 	// transactions
 	const dateDesc =
-		'SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? ORDER BY date_tran DESC, id_tran DESC';
+		'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.name_category as category, Transactions.date_tran, Transactions.id_tran FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category ORDER BY date_tran DESC, id_tran DESC';
 	const dateAsc =
 		'SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? ORDER BY date_tran ASC, id_tran ASC';
 	const category =
@@ -49,7 +49,7 @@ export async function load() {
 		"SELECT * FROM Transactions WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND amount_type = 'transfer' ORDER BY date_tran DESC, id_tran DESC";
 
 	const tranQuery = [dateDesc, dateAsc, category, typeIncome, typeExpense, typeTransfer];
-	const [dateDescendingTran] = await mysqlconnection.query(tranQuery[option], [month, year]);
+	const [dateDescendingTran] = await mysqlconnection.query(tranQuery[0], [month, year]);
 
 	const grouped_results = new Map();
 	dateDescendingTran.forEach((row) => {

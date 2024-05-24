@@ -4,18 +4,21 @@
 	import { formatNumber } from './localFunctions';
 
 	export let data;
-	let colorTotal = '';
-
-	switch (true) {
-		case data.accounts.amount === 0:
-			colorTotal = 'text-white';
-			break;
-		case data.accounts.amount > 0:
-			colorTotal = 'green_TC';
-			break;
-		case data.accounts.amount < 0:
-			colorTotal = 'red_TC';
-			break;
+	/** @param {number} i */
+	function colorTotal(i) {
+		let color = '';
+		switch (true) {
+			case data.accounts[i].amount === 0:
+				color = 'text-white';
+				break;
+			case data.accounts[i].amount > 0:
+				color = 'green_TC';
+				break;
+			case data.accounts[i].amount < 0:
+				color = 'red_TC';
+				break;
+		}
+		return color;
 	}
 
 	let currency = '$';
@@ -76,7 +79,7 @@
 				{#each data.transactions as transaction}
 					<div
 						class="flex text-xl p-1 pr-2 justify-between border-r-4 rounded-s-lg pl-1
-					{transaction.amount_type === 'income'
+					{transaction.type_tran === 'income'
 							? 'border-green transaction-green_BG'
 							: 'border-red transaction-red_BG'}"
 					>
@@ -115,7 +118,7 @@
 							: ''} border-LT pl-1"
 					>
 						<p>{account.name_account}</p>
-						<p class={colorTotal}>{formatNumber(account.amount)} {currency}</p>
+						<p class={colorTotal(i)}>{formatNumber(account.amount)} {currency}</p>
 					</div>
 				{/each}
 			</div>

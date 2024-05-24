@@ -79,5 +79,5 @@ export function formatDayTran(date) {
 
 	const formattedDate = date.toLocaleString('en-US', options);
 	const [month, day] = formattedDate.split(' ');
-	return `${day} ${month}`;
+	return day + ' ' + month;
 }
