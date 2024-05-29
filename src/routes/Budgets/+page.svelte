@@ -71,7 +71,7 @@
 					</div>
 				</div>
 				<div class="flex justify-between">
-					<p>You still have: 60 $</p>
+					<p>Residual amount: 60 $</p>
 					<p>15$/75$</p>
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 					</div>
 				</div>
 				<div class="flex justify-between">
-					<p>You still have: 60 $</p>
+					<p>Residual amount: 60 $</p>
 					<p>15$/75$</p>
 				</div>
 			</div>
@@ -148,7 +148,7 @@
 				</div>
 			</div>
 			<div class="flex justify-between">
-				<p>You still have: 60 $</p>
+				<p>Residual amount: 60 $</p>
 				<p>15$/75$</p>
 			</div>
 		</div>
@@ -180,7 +180,7 @@
 				</div>
 			</div>
 			<div class="flex justify-between">
-				<p>You still have: 60 $</p>
+				<p>Residual amount: 60 $</p>
 				<p>15$/75$</p>
 			</div>
 		</div>
