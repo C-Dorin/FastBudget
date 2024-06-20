@@ -31,7 +31,11 @@
 		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 			<div class="flex justify-between">
 				<p class="font-medium">Backup:</p>
-				<p class="green_TC">{data.backup[0].amount} {currency}</p>
+				{#if data.backup[0] != null}
+					<p class="green_TC">{data.backup[0].amount} {currency}</p>
+				{:else}
+					<p class="text-white">0.00 {currency}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -39,7 +43,11 @@
 		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 			<div class="flex justify-between">
 				<p class="font-medium">Monthly:</p>
-				<p class="green_TC">{data.monthly[0].amount} {currency}</p>
+				{#if data.monthly[0] != null}
+					<p class="green_TC">{data.monthly[0].amount} {currency}</p>
+				{:else}
+					<p class="text-white">0.00 {currency}</p>
+				{/if}
 			</div>
 		</div>
 
@@ -47,7 +55,11 @@
 		<div class="w-1/3 p-4 text-center border rounded-lg columbia-blue_BG border-LT">
 			<div class="flex justify-between">
 				<p class="font-medium">Investment:</p>
-				<p class="green_TC">{data.investment[0].amount} {currency}</p>
+				{#if data.investment[0] != null}
+					<p class="green_TC">{data.investment[0].amount} {currency}</p>
+				{:else}
+					<p class="text-white">0.00 {currency}</p>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -76,17 +88,21 @@
 			>
 				<p class="text-2xl">Transactions</p>
 				<!-- First Transaction -->
-				{#each data.transactions as transaction}
-					<div
-						class="flex text-xl p-1 pr-2 justify-between border-r-4 rounded-s-lg pl-1
+				{#if data.transactions[0] != null}
+					{#each data.transactions as transaction}
+						<div
+							class="flex text-xl p-1 pr-2 justify-between border-r-4 rounded-s-lg pl-1
 					{transaction.type_tran === 'income'
-							? 'border-green transaction-green_BG'
-							: 'border-red transaction-red_BG'}"
-					>
-						<p class="pl-1">{transaction.category}</p>
-						<p>{formatNumber(transaction.amount)} $</p>
-					</div>
-				{/each}
+								? 'border-green transaction-green_BG'
+								: 'border-red transaction-red_BG'}"
+						>
+							<p class="pl-1">{transaction.category}</p>
+							<p>{formatNumber(transaction.amount)} $</p>
+						</div>
+					{/each}
+				{:else}
+					<p class="text-gray-400 text-4xl p-16">No Data</p>
+				{/if}
 			</div>
 			<!-- /Transactions -->
 			<!-- **************************************** -->
@@ -111,16 +127,20 @@
 				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
 			>
 				<p class="text-2xl">Accounts</p>
-				{#each data.accounts as account, i}
-					<div
-						class="flex text-xl p-1 justify-between {i != data.accounts.length - 1
-							? 'border-b'
-							: ''} border-LT pl-1"
-					>
-						<p>{account.name_account}</p>
-						<p class={colorTotal(i)}>{formatNumber(account.amount)} {currency}</p>
-					</div>
-				{/each}
+				{#if data.accounts[0] != null}
+					{#each data.accounts as account, i}
+						<div
+							class="flex text-xl p-1 justify-between {i != data.accounts.length - 1
+								? 'border-b'
+								: ''} border-LT pl-1"
+						>
+							<p>{account.name_account}</p>
+							<p class={colorTotal(i)}>{formatNumber(account.amount)} {currency}</p>
+						</div>
+					{/each}
+				{:else}
+					<p class="text-gray-400 text-4xl p-16">No Data</p>
+				{/if}
 			</div>
 			<!-- /Accounts -->
 			<!-- **************************************** -->
