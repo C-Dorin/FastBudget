@@ -27,21 +27,22 @@ CREATE TABLE Currencies (
 DROP TABLE IF EXISTS People;
 CREATE TABLE People (
 	id_person INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(40) NOT NULL
+	person_name VARCHAR(40) NOT NULL,
+	visibility ENUM('Archived', 'Unarchived') NOT NULL DEFAULT 'Unarchived'
 );
 
 DROP TABLE IF EXISTS Categories;
 CREATE TABLE Categories (
 	id_category INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	category_type ENUM('Income', 'Expense', 'Transfer') NOT NULL,
-	name_category VARCHAR(30) NOT NULL,
-	name_icon VARCHAR(20) NOT NULL
+	category_name VARCHAR(30) NOT NULL,
+	icon_name VARCHAR(20) NOT NULL
 );
 
 DROP TABLE IF EXISTS Settings;
 CREATE TABLE Settings (
 	id_setting INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	name_setting VARCHAR(30) NOT NULL,
+	setting_name VARCHAR(30) NOT NULL,
 	nr_option INT NOT NULL
 );
 
@@ -49,7 +50,7 @@ DROP TABLE IF EXISTS Accounts;
 CREATE TABLE Accounts (
 	id_account INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_superAccount INT,
-	name_account VARCHAR(30) NOT NULL,
+	account_name VARCHAR(30) NOT NULL,
 	id_currency INT NOT NULL,
 	initial_amount DECIMAL(15, 2) NOT NULL,
 	amount DECIMAL(15,2) NOT NULL,
@@ -77,8 +78,8 @@ CREATE TABLE Debts (
 	id_account INT NOT NULL,
 	amount DECIMAL(15,2) NOT NULL,
 	payback DECIMAL(15,2) NOT NULL DEFAULT 0,
-	date_start DATE NOT NULL,
-	date_finish DATE NOT NULL,
+	start_date DATE NOT NULL,
+	finish_date DATE NOT NULL,
 	debt_type ENUM('Debt', 'Loan') NOT NULL,
 	visibility ENUM('Archived', 'Unarchived') NOT NULL DEFAULT 'Unarchived',
 	id_person INT NOT NULL,
@@ -94,7 +95,7 @@ CREATE TABLE Transactions (
 	id_category INT NOT NULL,
 	id_account_consignee INT,
 	amount DECIMAL(15,2) NOT NULL,
-	date_tran DATETIME NOT NULL,
+	tran_date DATETIME NOT NULL,
 	id_person INT NOT NULL,
 	note VARCHAR(150),
 	FOREIGN KEY (id_account) REFERENCES Accounts (id_account),
@@ -110,7 +111,7 @@ CREATE TABLE Scheduled_Transactions (
 	id_category INT NOT NULL,
 	id_account_consignee INT,
 	amount DECIMAL(15,2) NOT NULL,
-	date_tran DATETIME NOT NULL,
+	tran_date DATETIME NOT NULL,
 	id_person INT NOT NULL,
 	note VARCHAR(150),
 	iterations_per_time INT NOT NULL,
