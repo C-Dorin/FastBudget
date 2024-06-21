@@ -24,7 +24,7 @@ export async function load() {
 
 	// monthly
 	let monthlyBalance = await mysqlconnection
-		.query('SELECT * FROM Transactions WHERE date_tran LIKE "2024-05%"')
+		.query('SELECT * FROM Transactions WHERE tran_date LIKE "2024-05%"')
 		.then(function ([rows]) {
 			return rows;
 		});
@@ -39,13 +39,13 @@ export async function load() {
 	// ===== Monthly Summary ===== //
 	// income
 	let monthlyIncome = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "income"',
+		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "income"',
 		[month, year]
 	);
 
 	// expense
 	let monthlyExpense = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(date_tran) = ? AND YEAR(date_tran) = ? AND Categories.category_type = "expense"',
+		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "expense"',
 		[month, year]
 	);
 
@@ -53,7 +53,7 @@ export async function load() {
 	// transactions
 	let lastTransactions = await mysqlconnection
 		.query(
-			'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.name_category as category FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category ORDER BY date_tran DESC, id_tran DESC LIMIT 5'
+			'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.category_name as category FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category ORDER BY tran_date DESC, id_tran DESC LIMIT 5'
 		)
 		.then(function ([rows]) {
 			return rows;

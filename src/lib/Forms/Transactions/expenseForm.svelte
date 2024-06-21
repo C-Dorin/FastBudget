@@ -2,7 +2,7 @@
 	// @ts-nocheck
 
 	import { addExpenseStatus } from '$lib/Components/globalStore';
-	import { addTransaction } from '../../../routes/Overview/localFunctions.js';
+	import { addTransaction } from '$lib/Database/SQLFunctions';
 
 	// Variables in Form
 	let id_account;

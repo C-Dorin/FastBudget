@@ -5,7 +5,7 @@
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
 	import { selectedAccountName, selectedAccountIcon } from '$lib/Components/globalStore';
 	import { selectedCategoryName, selectedCategoryIcon } from '$lib/Components/globalStore';
-	import { addTransaction } from '../../../routes/Overview/localFunctions.js';
+	import { addTransaction } from '$lib/Database/SQLFunctions';
 
 	// Variables in Form
 	let id_account;
@@ -33,7 +33,7 @@
 		}
 
 		let date_tran = transformDate(date) + ' ' + time;
-		addTransaction(id_account, id_category, amount, id_currency, date_tran, note);
+		addTransaction(2, 1, 'da', 200, '2024-04-12 16:02:39', 5, 'nu');
 		defaultButton();
 	}
 </script>
