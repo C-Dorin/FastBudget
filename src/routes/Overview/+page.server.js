@@ -1,5 +1,5 @@
 import { ConnectionDB } from '$lib/Database/mySQL';
-import { monthValue } from './localFunctions';
+import { monthValue } from '$lib/Components/globalFunctions';
 
 export async function load() {
 	let mysqlconnection = await ConnectionDB();

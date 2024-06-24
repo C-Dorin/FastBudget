@@ -12,20 +12,10 @@ export let optionCategory = writable(1);
 export let optionType = writable(1);
 export let optionSortBy = writable(0);
 
-// ===== Account options ===== //
+// Account options
 export let selectedAccountName = writable('');
 export let selectedAccountIcon = writable('');
+
+// Category options
 export let selectedCategoryName = writable('');
 export let selectedCategoryIcon = writable('');
-
-export const account_options = writable([
-	{ name: 'Wallet', icon: 'wallet' },
-	{ name: 'Card', icon: 'credit_card' },
-	{ name: 'Backup', icon: 'box' }
-]);
-
-export const category_income_options = writable([
-	{ name: 'Bar', icon: 'local_bar' },
-	{ name: 'Coffee', icon: 'local_cafe' },
-	{ name: 'GYM', icon: 'exercise' }
-]);

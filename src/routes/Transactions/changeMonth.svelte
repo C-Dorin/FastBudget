@@ -1,5 +1,5 @@
 <script>
-	import { monthValue, increaseMonth, decreaseMonth } from './localFunctions';
+	import { monthValue, increaseMonth, decreaseMonth } from '$lib/Components/globalFunctions';
 </script>
 
 <div class="flex text-2xl justify-between">

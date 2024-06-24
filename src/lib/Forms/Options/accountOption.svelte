@@ -1,6 +1,8 @@
 <script>
-	import { addAccountStatus, account_options } from '$lib/Components/globalStore';
+	import { addAccountStatus } from '$lib/Components/globalStore';
 	import { selectedAccountName, selectedAccountIcon } from '$lib/Components/globalStore';
+
+	export let accountOptions;
 
 	// @ts-ignore
 	function handleSelectedAccount(account, icon) {
@@ -21,17 +23,21 @@
 		<div class="text-3xl font-light pb-3 p-2 pt-4 text-center">
 			<p>Account</p>
 		</div>
-		<div class="flex flex-col space-y-0.5 w-full">
-			{#each $account_options as account_options}
-				<button
-					class="flex border border-LT rounded p-1 text-left buttonH"
-					on:click={() => handleSelectedAccount(account_options.name, account_options.icon)}
-				>
-					<span class="material-symbols-outlined pr-1">{account_options.icon}</span>
-					<p>{account_options.name}</p>
-				</button>
-			{/each}
-		</div>
+		{#if accountOptions}
+			<div class="flex flex-col space-y-0.5 w-full">
+				{#each accountOptions as accountOption}
+					<button
+						class="flex border border-LT rounded p-1 text-left buttonH"
+						on:click={() => handleSelectedAccount(accountOption.name, accountOption.icon)}
+					>
+						<span class="material-symbols-outlined pr-1">{accountOption.icon}</span>
+						<p>{accountOption.name}</p>
+					</button>
+				{/each}
+			</div>
+		{:else}
+			<p>No account options available.</p>
+		{/if}
 	</div>
 </div>
 

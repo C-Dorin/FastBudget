@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ConnectionDB } from '$lib/Database/mySQL';
-import { monthValue, formatDayTran } from './localFunctions';
+import { monthValue, formatDayTran } from '$lib/Components/globalFunctions';
 import { optionSortBy } from '$lib/Components/globalStore';
 
 export async function load() {
@@ -23,13 +23,13 @@ export async function load() {
 	// ===== Monthly Summary ===== //
 	// income
 	let monthlyIncome = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "income"',
+		'SELECT SUM(amount) as totalIncome FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "Income"',
 		[month, year]
 	);
 
 	// expense
 	let monthlyExpense = await mysqlconnection.query(
-		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "expense"',
+		'SELECT SUM(amount) as totalExpense FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(tran_date) = ? AND YEAR(tran_date) = ? AND Categories.category_type = "Expense"',
 		[month, year]
 	);
 
@@ -60,6 +60,10 @@ export async function load() {
 		}
 		grouped_results.set(tran_date, existing_result);
 	});
+
+	let icon_accountName = await mysqlconnection.query(
+		'SELECT account_name, icon_name FROM Accounts'
+	);
 
 	return {
 		income: monthlyIncome[0],

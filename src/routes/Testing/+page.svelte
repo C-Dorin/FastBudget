@@ -1,42 +1,18 @@
 <script>
 	// @ts-nocheck
-	import { transactionStore } from './Object';
-	import { onDestroy } from 'svelte';
+	import Month from './changeMonth.svelte';
+	import Values from './monthlyValues.svelte';
 
-	let groupedByDay = {};
-	let unsubscribe;
-
-	// Subscribe to transactionStore and update groupedByDay when the store changes
-	unsubscribe = transactionStore.subscribe((transactions) => {
-		console.log('Transactions:', unsubscribe); // Debugging step to see the data structure
-		groupedByDay = {};
-		transactions.forEach((entry) => {
-			const day = entry.date_tran.toDateString(); // Convert to string for easier grouping
-			groupedByDay[day] = groupedByDay[day] || [];
-			groupedByDay[day].push(entry);
-		});
-		console.log('Grouped by Day:', groupedByDay); // Debugging step to check grouped data
-	});
-
-	// Cleanup subscription on component destroy
-	onDestroy(() => {
-		unsubscribe();
-	});
+	export let data;
 </script>
 
-{#if Object.entries(groupedByDay).length > 0}
-	<div class="pl-40">
-		<p>Hello world</p>
-
-		{#each Object.entries(groupedByDay) as [day, entries]}
-			<h2>{day}</h2>
-			<div class="flex flex-col">
-				{#each entries as entry}
-					<p>{entry.amount}</p>
-				{/each}
-			</div>
-		{/each}
+<div class="p-2">
+	<div class="p-2 pb-14">
+		<div
+			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
+		>
+			<Month />
+			<Values {data} />
+		</div>
 	</div>
-{:else}
-	<p>Loading data...</p>
-{/if}
+</div>

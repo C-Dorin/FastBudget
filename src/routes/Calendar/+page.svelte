@@ -1,5 +1,5 @@
 <script>
-	import { formatNumber } from '../Overview/localFunctions';
+	import { formatNumber } from '$lib/Components/globalFunctions';
 	let total = 700 - 500;
 	let colorTotal = '';
 

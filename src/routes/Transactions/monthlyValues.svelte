@@ -1,5 +1,5 @@
 <script>
-	import { formatNumber } from './localFunctions';
+	import { formatNumber } from '$lib/Components/globalFunctions';
 	export let data;
 
 	let total = data.income[0].totalIncome - data.expense[0].totalExpense;

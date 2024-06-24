@@ -314,7 +314,7 @@ export async function addTransaction(
 		date_tran,
 		note
 	});
-	await fetch('Queries/InsertData/InsertTransactions', {
+	await fetch('../Queries/InsertData/InsertTransactions', {
 		method: 'POST',
 		body: data,
 		headers: {

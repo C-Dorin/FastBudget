@@ -1,7 +1,7 @@
 <script>
 	import Mounth from './changeMonth.svelte';
 	import Values from './monthlyValues.svelte';
-	import { formatNumber } from './localFunctions';
+	import { formatNumber } from '$lib/Components/globalFunctions';
 
 	export let data;
 	/** @param {number} i */
@@ -32,7 +32,7 @@
 			<div class="flex justify-between">
 				<p class="font-medium">Backup:</p>
 				{#if data.backup[0] != null}
-					<p class="green_TC">{data.backup[0].amount} {currency}</p>
+					<p class="green_TC">{formatNumber(data.backup[0].amount)} {currency}</p>
 				{:else}
 					<p class="text-white">0.00 {currency}</p>
 				{/if}
@@ -44,7 +44,7 @@
 			<div class="flex justify-between">
 				<p class="font-medium">Monthly:</p>
 				{#if data.monthly[0] != null}
-					<p class="green_TC">{data.monthly[0].amount} {currency}</p>
+					<p class="green_TC">{formatNumber(data.monthly[0].amount)} {currency}</p>
 				{:else}
 					<p class="text-white">0.00 {currency}</p>
 				{/if}
@@ -56,7 +56,7 @@
 			<div class="flex justify-between">
 				<p class="font-medium">Investment:</p>
 				{#if data.investment[0] != null}
-					<p class="green_TC">{data.investment[0].amount} {currency}</p>
+					<p class="green_TC">{formatNumber(data.investment[0].amount)} {currency}</p>
 				{:else}
 					<p class="text-white">0.00 {currency}</p>
 				{/if}
@@ -92,7 +92,7 @@
 					{#each data.transactions as transaction}
 						<div
 							class="flex text-xl p-1 pr-2 justify-between border-r-4 rounded-s-lg pl-1
-					{transaction.type_tran === 'income'
+					{transaction.type_tran === 'Income'
 								? 'border-green transaction-green_BG'
 								: 'border-red transaction-red_BG'}"
 						>

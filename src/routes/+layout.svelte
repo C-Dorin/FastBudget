@@ -3,10 +3,10 @@
 	import { page } from '$app/stores';
 	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
-	import IncomeForm from '$lib/Forms/Transactions/incomeForm.svelte';
-	import ExpenseForm from '$lib/Forms/Transactions/expenseForm.svelte';
-	import AccountOption from '$lib/Forms/Options/accountOption.svelte';
-	import CategoryOption from '$lib/Forms/Options/categoryOption.svelte';
+	import IncomeForm from '../lib/Forms/Transactions/incomeForm.svelte';
+	import ExpenseForm from '../lib/Forms/Transactions/expenseForm.svelte';
+	import AccountOption from '../lib/Forms/Options/accountOption.svelte';
+	import CategoryOption from '../lib/Forms/Options/categoryOption.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [
@@ -47,6 +47,8 @@
 			resizeInSmallMenu();
 		}
 	}
+
+	export let data;
 </script>
 
 <link
@@ -105,16 +107,16 @@
 {#if $addIncomeStatus}
 	<IncomeForm />
 	{#if $addAccountStatus}
-		<AccountOption />
+		<AccountOption accountOptions={data.accountOptions} />
 	{:else if $addCategoryStatus}
-		<CategoryOption />
+		<CategoryOption categoryOptions={data.categoryIncomeOptions} />
 	{/if}
 {:else if $addExpenseStatus}
 	<ExpenseForm />
 	{#if $addAccountStatus}
-		<AccountOption />
+		<AccountOption accountOptions={data.accountOptions} />
 	{:else if $addCategoryStatus}
-		<CategoryOption />
+		<CategoryOption categoryOptions={data.categoryExpenseOptions} />
 	{/if}
 {/if}
 

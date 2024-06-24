@@ -1,7 +1,7 @@
 <script>
 	import { sortBy, optionCategory, optionType } from '$lib/Components/globalStore.js';
-	import { formatDayTran } from './localFunctions';
-	import Mounth from './changeMonth.svelte';
+	import { formatDayTran, formatNumber } from '$lib/Components/globalFunctions';
+	import Month from './changeMonth.svelte';
 	import Values from './monthlyValues.svelte';
 
 	export let data;
@@ -64,7 +64,7 @@
 		<div
 			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
 		>
-			<Mounth />
+			<Month />
 			<Values {data} />
 
 			<!-- Sort by -->
@@ -126,10 +126,10 @@
 				{#each entries as entry, i}
 					<div
 						class="flex justify-between py-2 {i != entries.length - 1 ? 'border-b border-LT' : ''}
-							{entry.type_tran === 'income' ? 'green_TC' : 'red_TC'}"
+							{entry.type_tran === 'Income' ? 'green_TC' : 'red_TC'}"
 					>
 						<p>{entry.category}</p>
-						<p>{entry.amount} $</p>
+						<p>{formatNumber(entry.amount)} $</p>
 					</div>
 				{/each}
 			</div>

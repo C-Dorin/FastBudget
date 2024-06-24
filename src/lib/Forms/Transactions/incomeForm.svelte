@@ -10,10 +10,11 @@
 	// Variables in Form
 	let id_account;
 	let id_category;
-	let id_currency = 1;
+	let id_account_consignee;
 	let amount;
 	let date = new Date().toLocaleDateString('eu-MD');
 	let time = new Date().toTimeString().split(' ')[0].split(':').slice(0, 2).join(':');
+	let id_person;
 	let note;
 
 	function defaultButton() {
@@ -32,9 +33,18 @@
 			return year + '.' + month + '.' + day;
 		}
 
-		let date_tran = transformDate(date) + ' ' + time;
-		addTransaction(2, 1, 'da', 200, '2024-04-12 16:02:39', 5, 'nu');
+		let tran_date = transformDate(date) + ' ' + time;
+		addTransaction(
+			id_account,
+			id_category,
+			id_account_consignee,
+			amount,
+			tran_date,
+			id_person,
+			note
+		);
 		defaultButton();
+		2;
 	}
 </script>
 

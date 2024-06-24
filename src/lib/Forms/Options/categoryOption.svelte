@@ -1,6 +1,8 @@
 <script>
-	import { addCategoryStatus, category_income_options } from '$lib/Components/globalStore';
+	import { addCategoryStatus } from '$lib/Components/globalStore';
 	import { selectedCategoryName, selectedCategoryIcon } from '$lib/Components/globalStore';
+
+	export let categoryOptions;
 
 	// @ts-ignore
 	function handleSelectedAccount(category, icon) {
@@ -19,20 +21,23 @@
 >
 	<div class="flex flex-col formSize border rounded-lg shadow-lg content-Light_BG">
 		<div class="text-3xl font-light pb-3 p-2 pt-4 text-center">
-			<p>Account</p>
+			<p>Category</p>
 		</div>
-		<div class="flex flex-col space-y-0.5 w-full">
-			{#each $category_income_options as category_income_options}
-				<button
-					class="flex border border-LT rounded p-1 text-left buttonH"
-					on:click={() =>
-						handleSelectedAccount(category_income_options.name, category_income_options.icon)}
-				>
-					<span class="material-symbols-outlined pr-1">{category_income_options.icon}</span>
-					<p>{category_income_options.name}</p>
-				</button>
-			{/each}
-		</div>
+		{#if categoryOptions}
+			<div class="flex flex-col space-y-0.5 w-full">
+				{#each categoryOptions as categoryOption}
+					<button
+						class="flex border border-LT rounded p-1 text-left buttonH"
+						on:click={() => handleSelectedAccount(categoryOption.name, categoryOption.icon)}
+					>
+						<span class="material-symbols-outlined pr-1">{categoryOption.icon}</span>
+						<p>{categoryOption.name}</p>
+					</button>
+				{/each}
+			</div>
+		{:else}
+			<p>No account options available.</p>
+		{/if}
 	</div>
 </div>
 
