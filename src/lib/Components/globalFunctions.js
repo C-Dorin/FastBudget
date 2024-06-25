@@ -39,7 +39,7 @@ export let monthValue = writable(
 	})
 );
 
-export function increaseMonth() {
+export async function increaseMonth() {
 	monthValue.update((month) => {
 		const monthUpdate = new Date(month);
 		monthUpdate.setMonth(monthUpdate.getMonth() + 1);
@@ -47,6 +47,13 @@ export function increaseMonth() {
 			month: 'long',
 			year: 'numeric'
 		});
+	});
+	const response = await fetch('../api/ChangeMonth', {
+		method: 'POST',
+		body: JSON.stringify({ monthValue }),
+		headers: {
+			'content-type': 'application/json'
+		}
 	});
 }
 

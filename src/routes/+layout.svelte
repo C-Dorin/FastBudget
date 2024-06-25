@@ -3,10 +3,10 @@
 	import { page } from '$app/stores';
 	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
-	import IncomeForm from '../lib/Forms/Transactions/incomeForm.svelte';
-	import ExpenseForm from '../lib/Forms/Transactions/expenseForm.svelte';
-	import AccountOption from '../lib/Forms/Options/accountOption.svelte';
-	import CategoryOption from '../lib/Forms/Options/categoryOption.svelte';
+	import IncomeForm from '$lib/Forms/Transactions/incomeForm.svelte';
+	import ExpenseForm from '$lib/Forms/Transactions/expenseForm.svelte';
+	import AccountOption from '$lib/Forms/Options/accountOption.svelte';
+	import CategoryOption from '$lib/Forms/Options/categoryOption.svelte';
 
 	// ===== Page url/name ===== //
 	let pagesLibrary = [

@@ -1,11 +1,13 @@
 <script>
 	import { addAccountStatus } from '$lib/Components/globalStore';
+	import { selectedAccountId } from '$lib/Components/globalStore';
 	import { selectedAccountName, selectedAccountIcon } from '$lib/Components/globalStore';
 
 	export let accountOptions;
 
 	// @ts-ignore
-	function handleSelectedAccount(account, icon) {
+	function handleSelectedAccount(id, account, icon) {
+		$selectedAccountId = id;
 		$selectedAccountName = account;
 		$selectedAccountIcon = icon;
 		$addAccountStatus = false;
@@ -28,7 +30,8 @@
 				{#each accountOptions as accountOption}
 					<button
 						class="flex border border-LT rounded p-1 text-left buttonH"
-						on:click={() => handleSelectedAccount(accountOption.name, accountOption.icon)}
+						on:click={() =>
+							handleSelectedAccount(accountOption.id, accountOption.name, accountOption.icon)}
 					>
 						<span class="material-symbols-outlined pr-1">{accountOption.icon}</span>
 						<p>{accountOption.name}</p>

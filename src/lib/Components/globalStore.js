@@ -13,9 +13,11 @@ export let optionType = writable(1);
 export let optionSortBy = writable(0);
 
 // Account options
+export let selectedAccountId = writable(0);
 export let selectedAccountName = writable('');
 export let selectedAccountIcon = writable('');
 
 // Category options
+export let selectedCategoryId = writable(0);
 export let selectedCategoryName = writable('');
 export let selectedCategoryIcon = writable('');

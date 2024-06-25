@@ -296,25 +296,23 @@ export async function deletePerson(visibility, id_person) {
 //
 export async function addTransaction(
 	id_account,
-	amount_type,
-	category,
-	img,
+	id_category,
+	id_account_consignee,
 	amount,
-	currency,
-	date_tran,
+	tran_date,
+	id_person,
 	note
 ) {
 	const data = JSON.stringify({
 		id_account,
-		amount_type,
-		category,
-		img,
+		id_category,
+		id_account_consignee,
 		amount,
-		currency,
-		date_tran,
+		tran_date,
+		id_person,
 		note
 	});
-	await fetch('../Queries/InsertData/InsertTransactions', {
+	await fetch('Queries/InsertData/InsertTransactions', {
 		method: 'POST',
 		body: data,
 		headers: {

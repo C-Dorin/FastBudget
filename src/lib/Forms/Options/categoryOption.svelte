@@ -1,11 +1,13 @@
 <script>
 	import { addCategoryStatus } from '$lib/Components/globalStore';
+	import { selectedCategoryId } from '$lib/Components/globalStore';
 	import { selectedCategoryName, selectedCategoryIcon } from '$lib/Components/globalStore';
 
 	export let categoryOptions;
 
 	// @ts-ignore
-	function handleSelectedAccount(category, icon) {
+	function handleSelectedAccount(id, category, icon) {
+		$selectedCategoryId = id;
 		$selectedCategoryName = category;
 		$selectedCategoryIcon = icon;
 		$addCategoryStatus = false;
@@ -28,7 +30,8 @@
 				{#each categoryOptions as categoryOption}
 					<button
 						class="flex border border-LT rounded p-1 text-left buttonH"
-						on:click={() => handleSelectedAccount(categoryOption.name, categoryOption.icon)}
+						on:click={() =>
+							handleSelectedAccount(categoryOption.id, categoryOption.name, categoryOption.icon)}
 					>
 						<span class="material-symbols-outlined pr-1">{categoryOption.icon}</span>
 						<p>{categoryOption.name}</p>

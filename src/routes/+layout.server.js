@@ -5,14 +5,14 @@ export async function load() {
 
 	// ===== Forms ===== //
 	let icon_accountNames = await mysqlconnection
-		.query('SELECT account_name AS name, icon_name AS icon FROM Accounts')
+		.query('SELECT id_account AS id, account_name AS name, icon_name AS icon FROM Accounts')
 		.then(function ([rows]) {
 			return rows;
 		});
 
 	let icon_categoryIncomeNames = await mysqlconnection
 		.query(
-			'SELECT category_name AS name, icon_name AS icon FROM Categories WHERE category_type = "Income"'
+			'SELECT id_category AS id, category_name AS name, icon_name AS icon FROM Categories WHERE category_type = "Income"'
 		)
 		.then(function ([rows]) {
 			return rows;
@@ -20,7 +20,7 @@ export async function load() {
 
 	let icon_categoryExpenseNames = await mysqlconnection
 		.query(
-			'SELECT category_name AS name, icon_name AS icon FROM Categories WHERE category_type = "Expense"'
+			'SELECT id_category AS id, category_name AS name, icon_name AS icon FROM Categories WHERE category_type = "Expense"'
 		)
 		.then(function ([rows]) {
 			return rows;

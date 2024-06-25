@@ -3,6 +3,7 @@
 
 	import { addIncomeStatus } from '$lib/Components/globalStore';
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
+	import { selectedAccountId, selectedCategoryId } from '$lib/Components/globalStore';
 	import { selectedAccountName, selectedAccountIcon } from '$lib/Components/globalStore';
 	import { selectedCategoryName, selectedCategoryIcon } from '$lib/Components/globalStore';
 	import { addTransaction } from '$lib/Database/SQLFunctions';
@@ -20,9 +21,11 @@
 	function defaultButton() {
 		$addIncomeStatus = false;
 		// Account
+		$selectedAccountId = 0;
 		$selectedAccountName = '';
 		$selectedAccountIcon = '';
 		// Category
+		$selectedCategoryName = 0;
 		$selectedCategoryName = '';
 		$selectedCategoryIcon = '';
 	}
@@ -35,8 +38,8 @@
 
 		let tran_date = transformDate(date) + ' ' + time;
 		addTransaction(
-			id_account,
-			id_category,
+			(id_account = $selectedAccountId),
+			(id_category = $selectedCategoryId),
 			id_account_consignee,
 			amount,
 			tran_date,
@@ -44,7 +47,6 @@
 			note
 		);
 		defaultButton();
-		2;
 	}
 </script>
 
