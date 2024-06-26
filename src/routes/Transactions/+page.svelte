@@ -65,7 +65,7 @@
 			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
 		>
 			<Month />
-			<Values {data} />
+			<Values />
 
 			<!-- Sort by -->
 			<div class="flex justify-center pt-4">

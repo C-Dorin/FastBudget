@@ -72,7 +72,7 @@
 			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
 		>
 			<Mounth />
-			<Values {data} />
+			<Values />
 		</div>
 	</div>
 	<!-- /Monthly Summary -->
@@ -112,7 +112,11 @@
 				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
 			>
 				<p class="text-2xl">Balance</p>
-				<p class="text-8xl pt-10">Diagram 🔨</p>
+				<div class="flex py-10 justify-center">
+					<p class="p-1 px-2 text-4xl text-blue-800 bg-blue-300 border-2 border-LT rounded-2xl">
+						Coming soon
+					</p>
+				</div>
 			</div>
 			<!-- /Total Summary Diagram -->
 			<!-- **************************************** -->
@@ -134,7 +138,7 @@
 								? 'border-b'
 								: ''} border-LT pl-1"
 						>
-							<p>{account.name_account}</p>
+							<p>{account.account_name}</p>
 							<p class={colorTotal(i)}>{formatNumber(account.amount)} {currency}</p>
 						</div>
 					{/each}
@@ -150,7 +154,11 @@
 				class="flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG space-y-1"
 			>
 				<p class="text-2xl">Budgets</p>
-				<p class="text-8xl pt-10">Budgets 🔨</p>
+				<div class="flex py-10 justify-center">
+					<p class="p-1 px-2 text-4xl text-blue-800 bg-blue-300 border-2 border-LT rounded-2xl">
+						Coming soon
+					</p>
+				</div>
 			</div>
 			<!-- /Budgets -->
 			<!-- **************************************** -->

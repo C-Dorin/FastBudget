@@ -3,17 +3,10 @@
 // Often used default functions
 
 import { writable } from 'svelte/store';
+import { get } from 'svelte/store';
 
 // ===== Formats ===== //
-export function formatDay(dateString) {
-	const date = new Date(dateString);
-	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, '0');
-	const day = String(date.getDate()).padStart(2, '0');
-
-	return `${year}-${month}-${day}`;
-}
-
+// Format of day (ex: June 02)
 export function formatDayTran(date) {
 	const options = {
 		day: '2-digit',
@@ -22,14 +15,18 @@ export function formatDayTran(date) {
 
 	const formattedDate = date.toLocaleString('en-US', options);
 	const [month, day] = formattedDate.split(' ');
-	return day + ' ' + month;
+	return month + ' ' + day;
 }
 
-// Make easier to read numbers
+// Format of number (ex:100,000.00)
 export function formatNumber(value) {
 	let number = Math.abs(value).toFixed(2);
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+// ===== Monthly values ===== //
+export let income = writable(0);
+export let expense = writable(0);
 
 // ===== Month Changer ===== //
 export let monthValue = writable(
@@ -38,6 +35,26 @@ export let monthValue = writable(
 		year: 'numeric'
 	})
 );
+
+async function updateMonthValue(monthString) {
+	const response = await fetch('/api/ChangeMonth', {
+		method: 'POST',
+		body: JSON.stringify({ updatedMonth: monthString }),
+		headers: {
+			'content-type': 'application/json'
+		}
+	});
+
+	const data = await response.json();
+	income.set(data.totalIncome);
+	expense.set(data.totalExpense);
+}
+
+// Function to fetch and set initial data
+export async function fetchInitialData() {
+	const initialMonth = get(monthValue);
+	await updateMonthValue(initialMonth);
+}
 
 export async function increaseMonth() {
 	monthValue.update((month) => {
@@ -48,16 +65,11 @@ export async function increaseMonth() {
 			year: 'numeric'
 		});
 	});
-	const response = await fetch('../api/ChangeMonth', {
-		method: 'POST',
-		body: JSON.stringify({ monthValue }),
-		headers: {
-			'content-type': 'application/json'
-		}
-	});
+	const updatedMonth = get(monthValue);
+	await updateMonthValue(updatedMonth);
 }
 
-export function decreaseMonth() {
+export async function decreaseMonth() {
 	monthValue.update((month) => {
 		const monthUpdate = new Date(month);
 		monthUpdate.setMonth(monthUpdate.getMonth() - 1);
@@ -66,4 +78,6 @@ export function decreaseMonth() {
 			year: 'numeric'
 		});
 	});
+	const updatedMonth = get(monthValue);
+	await updateMonthValue(updatedMonth);
 }
