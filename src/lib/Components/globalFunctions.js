@@ -36,6 +36,16 @@ export let monthValue = writable(
 	})
 );
 
+export function resetMonthValue() {
+	let actualMonth = writable(
+		new Date().toLocaleString('default', {
+			month: 'long',
+			year: 'numeric'
+		})
+	);
+	monthValue = actualMonth;
+}
+
 async function updateMonthValue(monthString) {
 	const response = await fetch('/api/ChangeMonth', {
 		method: 'POST',

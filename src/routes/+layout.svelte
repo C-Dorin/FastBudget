@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
+	import { resetMonthValue } from '$lib/Components/globalFunctions';
 	import IncomeForm from '$lib/Forms/Transactions/incomeForm.svelte';
 	import ExpenseForm from '$lib/Forms/Transactions/expenseForm.svelte';
 	import AccountOption from '$lib/Forms/Options/accountOption.svelte';
@@ -46,6 +47,11 @@
 		if (pageWidth <= 1000) {
 			resizeInSmallMenu();
 		}
+	}
+
+	function switcherPages(page) {
+		currentPage = page.label;
+		resetMonthValue();
 	}
 
 	export let data;
@@ -92,7 +98,7 @@
 				class="flex flex-row button {currentLinkPage === page.path
 					? 'bice-blue_BG text-slate-200'
 					: 'buttonH'}"
-				on:click={() => (currentPage = page.label)}
+				on:click={() => switcherPages(page)}
 			>
 				<span class="material-symbols-outlined p-2.5 pt-1.5 pr-3 iconSize">{page.icon}</span>
 				{#if currentSizeMenu === bigSizeMenu}
