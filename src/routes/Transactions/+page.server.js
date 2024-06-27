@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { ConnectionDB } from '$lib/Database/mySQL';
 import { monthValue, formatDayTran } from '$lib/Components/globalFunctions';
-import { optionSortBy } from '$lib/Components/globalStore';
 
 export async function load() {
 	let mysqlconnection = await ConnectionDB();
@@ -14,10 +13,6 @@ export async function load() {
 		const currentYear = new Date(value).getFullYear();
 		month = currentMonth;
 		year = currentYear;
-	})();
-
-	optionSortBy.subscribe((value) => {
-		option = value;
 	})();
 
 	// ===== Monthly Summary ===== //

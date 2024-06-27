@@ -1,61 +1,28 @@
 <script>
-	import { sortBy, optionCategory, optionType } from '$lib/Components/globalStore.js';
+	import { Date, Category, CategoryType } from './localStore';
+	import { sortByDate, sortByCategory, sortByCategoryType } from './localStore';
+	import { selectedDateName, selectedCategoryName } from './localStore';
+	import { selectedCategoryTypeName } from './localStore';
 	import { formatDayTran, formatNumber } from '$lib/Components/globalFunctions';
 	import Month from './changeMonth.svelte';
 	import Values from './monthlyValues.svelte';
 
+	function DateButton() {
+		$Date = true;
+		$Category = false;
+		$CategoryType = false;
+	}
+	function CategoryButton() {
+		$Date = false;
+		$Category = true;
+		$CategoryType = false;
+	}
+	function CategoryTypeButton() {
+		$Date = false;
+		$Category = false;
+		$CategoryType = true;
+	}
 	export let data;
-
-	function sortByDate() {
-		$sortBy = 'Date';
-	}
-	function sortByCategory() {
-		$sortBy = 'Category';
-		$optionCategory = 1;
-	}
-	function sortByType() {
-		$sortBy = 'Type';
-		$optionType = 1;
-	}
-
-	function orderDate() {
-		let options = ['01', '31'];
-		const dateToggle = document.querySelector('.date-toggle');
-
-		if (dateToggle) {
-			const dateDisplays = dateToggle.querySelectorAll('.date-display');
-			const currentDisplay = dateDisplays[0].textContent;
-			dateDisplays[0].textContent = currentDisplay === options[1] ? options[0] : options[1];
-			dateDisplays[1].textContent = currentDisplay === options[0] ? options[0] : options[1];
-		}
-	}
-
-	function orderCategory() {
-		let options = ['All', 'Sallary', 'Bar', 'Bursa', "McDonald's"];
-
-		const dateToggle = document.querySelector('.date-toggle');
-		if (dateToggle) {
-			const dateDisplays = dateToggle.querySelectorAll('.date-display');
-			dateDisplays[0].textContent = options[$optionCategory];
-			$optionCategory++;
-			if ($optionCategory >= options.length) {
-				$optionCategory = 0;
-			}
-		}
-	}
-
-	function orderType() {
-		let options = ['All', 'Income', 'Expense', 'Transfer'];
-		const dateToggle = document.querySelector('.date-toggle');
-		if (dateToggle) {
-			const dateDisplays = dateToggle.querySelectorAll('.date-display');
-			dateDisplays[0].textContent = options[$optionType];
-			$optionType++;
-			if ($optionType >= options.length) {
-				$optionType = 0;
-			}
-		}
-	}
 </script>
 
 <!-- Monthly Summary -->
@@ -71,42 +38,48 @@
 			<div class="flex justify-center pt-4">
 				<div class="flex flex-col place-items-center space-y-2 text-xl">
 					<div class="flex justify-center border border-LT rounded-lg divide-x divide-bice-blue">
-						{#if $sortBy === 'Date'}
+						{#if $Date}
 							<button class="px-2 w-24 bice-blue_BG rounded-l-md text-slate-200">Date</button>
-							<button class="px-2 w-24" on:click={() => sortByCategory()}>Category</button>
-							<button class="px-2 w-24" on:click={() => sortByType()}>Type</button>
-						{:else if $sortBy === 'Category'}
-							<button class="px-2 w-24" on:click={() => sortByDate()}>Date</button>
+							<button class="px-2 w-24" on:click={() => CategoryButton()}>Category</button>
+							<button class="px-2 w-24" on:click={() => CategoryTypeButton()}>Type</button>
+						{:else if $Category}
+							<button class="px-2 w-24" on:click={() => DateButton()}>Date</button>
 							<button class="px-2 w-24 bice-blue_BG text-slate-200">Category</button>
-							<button class="px-2 w-24" on:click={() => sortByType()}>Type</button>
-						{:else if $sortBy === 'Type'}
-							<button class="px-2 w-24" on:click={() => sortByDate()}>Date</button>
-							<button class="px-2 w-24" on:click={() => sortByCategory()}>Category</button>
+							<button class="px-2 w-24" on:click={() => CategoryTypeButton()}>Type</button>
+						{:else if $CategoryType}
+							<button class="px-2 w-24" on:click={() => DateButton()}>Date</button>
+							<button class="px-2 w-24" on:click={() => CategoryButton()}>Category</button>
 							<button class="px-2 w-24 bice-blue_BG rounded-r-md text-slate-200">Type</button>
 						{/if}
 					</div>
-					{#if $sortBy === 'Date'}
+					{#if $Date}
 						<button
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
-							on:click={() => orderDate()}
+							on:click={() => ($sortByDate = true)}
 						>
-							<p class="date-display px-2">31</p>
-							<span class="material-symbols-outlined pt-0.5"> arrow_forward </span>
-							<p class="date-display px-2">01</p>
+							{@html $selectedDateName}
 						</button>
-					{:else if $sortBy === 'Category'}
+					{:else if $Category}
 						<button
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
-							on:click={() => orderCategory()}
+							on:click={() => ($sortByCategory = true)}
 						>
-							<p class="date-display px-2">All</p>
+							{#if $selectedCategoryName === ''}
+								<p class="">Select ...</p>
+							{:else}
+								<p>{$selectedCategoryName}</p>
+							{/if}
 						</button>
-					{:else if $sortBy === 'Type'}
+					{:else if $CategoryType}
 						<button
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
-							on:click={() => orderType()}
+							on:click={() => ($sortByCategoryType = true)}
 						>
-							<p class="date-display px-2">All</p>
+							{#if $selectedCategoryTypeName === ''}
+								<p class="">Select ...</p>
+							{:else}
+								<p>{$selectedCategoryTypeName}</p>
+							{/if}
 						</button>
 					{/if}
 				</div>
