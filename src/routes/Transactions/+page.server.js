@@ -56,10 +56,6 @@ export async function load() {
 		grouped_results.set(tran_date, existing_result);
 	});
 
-	let icon_accountName = await mysqlconnection.query(
-		'SELECT account_name, icon_name FROM Accounts'
-	);
-
 	return {
 		income: monthlyIncome[0],
 		expense: monthlyExpense[0],

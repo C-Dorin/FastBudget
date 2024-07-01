@@ -28,6 +28,9 @@ export function formatNumber(value) {
 export let income = writable(0);
 export let expense = writable(0);
 
+// ===== Transaction values ===== //
+export let transactions = writable(new Map());
+
 // ===== Month Changer ===== //
 export let monthValue = writable(
 	new Date().toLocaleString('default', {
@@ -58,6 +61,7 @@ async function updateMonthValue(monthString) {
 	const data = await response.json();
 	income.set(data.totalIncome);
 	expense.set(data.totalExpense);
+	transactions.set(new Map(data.grouped_results));
 }
 
 // Function to fetch and set initial data

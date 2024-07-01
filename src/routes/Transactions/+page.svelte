@@ -3,9 +3,9 @@
 	import { sortByDate, sortByCategory, sortByCategoryType } from './localStore';
 	import { selectedDateName, selectedCategoryName } from './localStore';
 	import { selectedCategoryTypeName } from './localStore';
-	import { formatDayTran, formatNumber } from '$lib/Components/globalFunctions';
 	import Month from './changeMonth.svelte';
 	import Values from './monthlyValues.svelte';
+	import Transactions from './transactions.svelte';
 
 	function DateButton() {
 		$Date = true;
@@ -22,11 +22,10 @@
 		$Category = false;
 		$CategoryType = true;
 	}
-	export let data;
 </script>
 
-<!-- Monthly Summary -->
 <div class="p-2">
+	<!-- Monthly Summary -->
 	<div class="p-2 pb-14">
 		<div
 			class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
@@ -87,31 +86,9 @@
 		</div>
 	</div>
 	<!-- /Monthly Summary -->
-	<!-- **************************************** -->
 
-	<!-- Transactions -->
-	{#each data.transactions as [transactionDate, entries]}
-		<div class="p-2 px-52 pt-4">
-			<div
-				class="space-x-4 flex flex-col p-4 text-center border border-LT rounded-lg columbia-blue_BG"
-			>
-				<p class="text-2xl">{formatDayTran(transactionDate)}</p>
-				{#each entries as entry, i}
-					<div
-						class="flex justify-between py-2 {i != entries.length - 1 ? 'border-b border-LT' : ''}
-							{entry.type_tran === 'Income' ? 'green_TC' : 'red_TC'}"
-					>
-						<p>{entry.category}</p>
-						<p>{formatNumber(entry.amount)} $</p>
-					</div>
-				{/each}
-			</div>
-		</div>
-	{/each}
+	<Transactions />
 </div>
-
-<!-- /Monthly Summary -->
-<!-- **************************************** -->
 
 <style>
 	.divide-bice-blue > :not([hidden]) ~ :not([hidden]) {
