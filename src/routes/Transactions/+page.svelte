@@ -63,22 +63,14 @@
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
 							on:click={() => ($sortByCategory = true)}
 						>
-							{#if $selectedCategoryName === ''}
-								<p class="">Select ...</p>
-							{:else}
-								<p>{$selectedCategoryName}</p>
-							{/if}
+							<p>{$selectedCategoryName}</p>
 						</button>
 					{:else if $CategoryType}
 						<button
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
 							on:click={() => ($sortByCategoryType = true)}
 						>
-							{#if $selectedCategoryTypeName === ''}
-								<p class="">Select ...</p>
-							{:else}
-								<p>{$selectedCategoryTypeName}</p>
-							{/if}
+							<p>{$selectedCategoryTypeName}</p>
 						</button>
 					{/if}
 				</div>

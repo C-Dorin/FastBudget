@@ -1,6 +1,7 @@
 <script>
 	import { sortByDate } from './localStore';
 	import { selectedDateName } from './localStore';
+	import { ShowTransactions } from '$lib/Components/globalFunctions';
 
 	const DateNames = [
 		'<p class="date-display px-2">31</p> <span class="material-symbols-outlined pt-0.5"> arrow_forward </span> <p class="date-display px-2">01</p>',
@@ -11,6 +12,7 @@
 	function handleSelectedAccount(name) {
 		$selectedDateName = name;
 		$sortByDate = false;
+		ShowTransactions();
 	}
 </script>
 

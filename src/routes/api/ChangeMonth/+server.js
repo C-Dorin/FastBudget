@@ -1,9 +1,7 @@
 // @ts-nocheck
 import { json } from '@sveltejs/kit';
 import { ConnectionDB } from '$lib/Database/mySQL';
-import { income, expense, transactions } from '$lib/Components/globalFunctions.js';
-import { get } from 'svelte/store';
-import { formatDayTran } from '$lib/Components/globalFunctions';
+import { income, expense } from '$lib/Components/globalFunctions.js';
 
 export async function POST({ request }) {
 	let connect = await ConnectionDB();
@@ -43,29 +41,11 @@ export async function POST({ request }) {
 		[month, year]
 	);
 
-	// transactions
-	const dateDesc =
-		'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.category_name AS category, Transactions.tran_date, Transactions.id_tran FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(Transactions.tran_date) = ? AND YEAR(Transactions.tran_date) = ? ORDER BY Transactions.tran_date DESC, Transactions.id_tran DESC';
-	const [dateDescendingTran] = await connect.query(dateDesc, [month, year]);
-
-	const grouped_results = [];
-	dateDescendingTran.forEach((row) => {
-		const tran_date = formatDayTran(row.tran_date);
-		const existing_result = grouped_results.find(([date]) => date === tran_date);
-
-		if (existing_result) {
-			existing_result[1].push(row);
-		} else {
-			grouped_results.push([tran_date, [row]]);
-		}
-	});
-
 	const totalIncome = monthlyIncome[0][0].totalIncome || 0;
 	const totalExpense = monthlyExpense[0][0].totalExpense || 0;
 
 	income.set(totalIncome);
 	expense.set(totalExpense);
-	transactions.set(grouped_results);
 
-	return json({ totalIncome, totalExpense, grouped_results });
+	return json({ totalIncome, totalExpense });
 }

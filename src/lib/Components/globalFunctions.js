@@ -4,6 +4,7 @@
 
 import { writable } from 'svelte/store';
 import { get } from 'svelte/store';
+import { selectedDateName } from '../../routes/Transactions/localStore';
 
 // ===== Formats ===== //
 // Format of day (ex: June 02)
@@ -27,9 +28,6 @@ export function formatNumber(value) {
 // ===== Monthly values ===== //
 export let income = writable(0);
 export let expense = writable(0);
-
-// ===== Transaction values ===== //
-export let transactions = writable(new Map());
 
 // ===== Month Changer ===== //
 export let monthValue = writable(
@@ -61,7 +59,8 @@ async function updateMonthValue(monthString) {
 	const data = await response.json();
 	income.set(data.totalIncome);
 	expense.set(data.totalExpense);
-	transactions.set(new Map(data.grouped_results));
+
+	await updateTransactions(monthString);
 }
 
 // Function to fetch and set initial data
@@ -94,4 +93,26 @@ export async function decreaseMonth() {
 	});
 	const updatedMonth = get(monthValue);
 	await updateMonthValue(updatedMonth);
+}
+
+// ===== Transaction values ===== //
+export let transactions = writable(new Map());
+
+async function updateTransactions(monthString) {
+	const selectedDate = get(selectedDateName);
+	const response = await fetch('/api/ShowTransactions', {
+		method: 'POST',
+		body: JSON.stringify({ updatedMonth: monthString, selectedDateName: selectedDate }),
+		headers: {
+			'content-type': 'application/json'
+		}
+	});
+
+	const data = await response.json();
+	transactions.set(new Map(data.grouped_results));
+}
+
+export async function ShowTransactions() {
+	const updatedMonth = get(monthValue);
+	await updateTransactions(updatedMonth);
 }

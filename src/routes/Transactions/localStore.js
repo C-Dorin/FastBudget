@@ -8,9 +8,9 @@ export let selectedDateName = writable(
 
 export let Category = writable(false);
 export let sortByCategory = writable(false);
-export let selectedCategoryName = writable('');
+export let selectedCategoryName = writable('All');
 export let selectedCategoryIcon = writable('');
 
 export let CategoryType = writable(false);
 export let sortByCategoryType = writable(false);
-export let selectedCategoryTypeName = writable('');
+export let selectedCategoryTypeName = writable('All');
