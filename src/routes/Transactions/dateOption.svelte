@@ -2,7 +2,7 @@
 	import { sortByDate } from './localStore';
 	import { selectedDateName } from './localStore';
 	import { ShowTransactions } from '$lib/Components/globalFunctions';
-	import { dateClickedArray, DateNames } from './localStore';
+	import { dateClickedArray, DateNames, prev_index } from './localStore';
 	import { get } from 'svelte/store';
 
 	// @ts-ignore
@@ -13,11 +13,14 @@
 		const currentArray = get(dateClickedArray);
 		const updatedArray = [...currentArray];
 
-		updatedArray[index] = !updatedArray[index];
-		if (index + 1 < updatedArray.length) {
-			updatedArray[index + 1] = !updatedArray[index + 1];
-		} else if (index - 1 >= 0) {
-			updatedArray[index - 1] = !updatedArray[index - 1];
+		if (index != $prev_index) {
+			$prev_index = index;
+			updatedArray[index] = !updatedArray[index];
+			if (index + 1 < updatedArray.length) {
+				updatedArray[index + 1] = !updatedArray[index + 1];
+			} else if (index - 1 >= 0) {
+				updatedArray[index - 1] = !updatedArray[index - 1];
+			}
 		}
 
 		dateClickedArray.set(updatedArray);

@@ -7,7 +7,8 @@ import { formatDayTran } from '$lib/Components/globalFunctions';
 
 export async function POST({ request }) {
 	let connect = await ConnectionDB();
-	const { updatedMonth, selectedDateName, selectedCategoryName } = await request.json();
+	const { updatedMonth, selectedDateName, selectedCategoryName, selectedCategoryTypeName } =
+		await request.json();
 
 	function getMonthNumber(month) {
 		const months = {
@@ -57,10 +58,27 @@ export async function POST({ request }) {
 		sortByCategory = ' AND Categories.category_name IN (' + categoryNames + ')';
 	}
 
+	let sortByCategoryType = '';
+	let categoryTypeNames = '';
+	if (selectedCategoryTypeName.length === 1) {
+		sortByCategoryType = '';
+	} else {
+		for (let i = 0; i < selectedCategoryTypeName.length; i++) {
+			if (i === 0) {
+				categoryTypeNames += '"' + selectedCategoryTypeName[i] + '"';
+			} else {
+				categoryTypeNames += ', "' + selectedCategoryTypeName[i] + '"';
+			}
+		}
+		sortByCategoryType = ' AND Categories.category_type IN (' + categoryTypeNames + ')';
+	}
+	console.log(selectedCategoryName);
+
 	// Final Query
 	const sortedQuery =
 		'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.category_name AS category, Transactions.tran_date, Transactions.id_tran FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(Transactions.tran_date) = ? AND YEAR(Transactions.tran_date) = ?' +
 		sortByCategory +
+		sortByCategoryType +
 		' ORDER BY Transactions.tran_date ' +
 		sortByDate +
 		', Transactions.id_tran ' +
