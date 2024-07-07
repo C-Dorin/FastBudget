@@ -63,7 +63,11 @@
 							class="date-toggle flex justify-center border border-LT rounded-lg w-36 bice-blue_BG text-slate-200"
 							on:click={() => ($sortByCategory = true)}
 						>
-							<p>{$selectedCategoryName}</p>
+							{#if $selectedCategoryName.length > 1}
+								<p>Multiple choise</p>
+							{:else}
+								<p>All</p>
+							{/if}
 						</button>
 					{:else if $CategoryType}
 						<button

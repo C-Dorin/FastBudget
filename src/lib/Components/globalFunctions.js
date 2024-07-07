@@ -5,6 +5,7 @@
 import { writable } from 'svelte/store';
 import { get } from 'svelte/store';
 import { selectedDateName } from '../../routes/Transactions/localStore';
+import { selectedCategoryName } from '../../routes/Transactions/localStore';
 
 // ===== Formats ===== //
 // Format of day (ex: June 02)
@@ -100,9 +101,18 @@ export let transactions = writable(new Map());
 
 async function updateTransactions(monthString) {
 	const selectedDate = get(selectedDateName);
+	let selectedCategory = [];
+	selectedCategoryName.subscribe((categoryNames) => {
+		selectedCategory = [...categoryNames];
+	});
+
 	const response = await fetch('/api/ShowTransactions', {
 		method: 'POST',
-		body: JSON.stringify({ updatedMonth: monthString, selectedDateName: selectedDate }),
+		body: JSON.stringify({
+			updatedMonth: monthString,
+			selectedDateName: selectedDate,
+			selectedCategoryName: selectedCategory
+		}),
 		headers: {
 			'content-type': 'application/json'
 		}

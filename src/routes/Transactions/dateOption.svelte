@@ -2,16 +2,25 @@
 	import { sortByDate } from './localStore';
 	import { selectedDateName } from './localStore';
 	import { ShowTransactions } from '$lib/Components/globalFunctions';
-
-	const DateNames = [
-		'<p class="date-display px-2">31</p> <span class="material-symbols-outlined pt-0.5"> arrow_forward </span> <p class="date-display px-2">01</p>',
-		'<p class="date-display px-2">01</p> <span class="material-symbols-outlined pt-0.5"> arrow_forward </span> <p class="date-display px-2">31</p>'
-	];
+	import { dateClickedArray, DateNames } from './localStore';
+	import { get } from 'svelte/store';
 
 	// @ts-ignore
-	function handleSelectedAccount(name) {
+	function handleSelectedAccount(name, index) {
 		$selectedDateName = name;
 		$sortByDate = false;
+
+		const currentArray = get(dateClickedArray);
+		const updatedArray = [...currentArray];
+
+		updatedArray[index] = !updatedArray[index];
+		if (index + 1 < updatedArray.length) {
+			updatedArray[index + 1] = !updatedArray[index + 1];
+		} else if (index - 1 >= 0) {
+			updatedArray[index - 1] = !updatedArray[index - 1];
+		}
+
+		dateClickedArray.set(updatedArray);
 		ShowTransactions();
 	}
 </script>
@@ -28,10 +37,11 @@
 			<p>Date</p>
 		</div>
 		<div class="flex flex-col space-y-0.5 w-full">
-			{#each DateNames as name}
+			{#each DateNames as name, index}
 				<button
 					class="flex border border-LT rounded p-1 text-left buttonH"
-					on:click={() => handleSelectedAccount(name)}
+					on:click={() => handleSelectedAccount(name, index)}
+					class:clicked={$dateClickedArray[index]}
 				>
 					{@html name}
 				</button>
@@ -48,5 +58,15 @@
 
 	.buttonH:hover {
 		background-color: rgb(185, 214, 242);
+	}
+
+	.clicked {
+		background-color: rgb(0, 109, 170);
+		color: #f1f5f9;
+	}
+
+	.buttonH.clicked:hover {
+		background-color: rgb(0, 109, 170);
+		color: #f1f5f9;
 	}
 </style>

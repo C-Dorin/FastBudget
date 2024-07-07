@@ -7,8 +7,7 @@ import { formatDayTran } from '$lib/Components/globalFunctions';
 
 export async function POST({ request }) {
 	let connect = await ConnectionDB();
-	const { updatedMonth, selectedDateName } = await request.json();
-	console.log('Received data:', { updatedMonth, selectedDateName });
+	const { updatedMonth, selectedDateName, selectedCategoryName } = await request.json();
 
 	function getMonthNumber(month) {
 		const months = {
@@ -43,9 +42,26 @@ export async function POST({ request }) {
 		sortByDate = 'ASC';
 	}
 
+	let sortByCategory = '';
+	let categoryNames = '';
+	if (selectedCategoryName.length === 1) {
+		sortByCategory = '';
+	} else {
+		for (let i = 0; i < selectedCategoryName.length; i++) {
+			if (i === 0) {
+				categoryNames += '"' + selectedCategoryName[i] + '"';
+			} else {
+				categoryNames += ', "' + selectedCategoryName[i] + '"';
+			}
+		}
+		sortByCategory = ' AND Categories.category_name IN (' + categoryNames + ')';
+	}
+
 	// Final Query
 	const sortedQuery =
-		'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.category_name AS category, Transactions.tran_date, Transactions.id_tran FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(Transactions.tran_date) = ? AND YEAR(Transactions.tran_date) = ? ORDER BY Transactions.tran_date ' +
+		'SELECT Categories.category_type AS type_tran, Transactions.amount, Categories.category_name AS category, Transactions.tran_date, Transactions.id_tran FROM Transactions INNER JOIN Categories ON Transactions.id_category = Categories.id_category WHERE MONTH(Transactions.tran_date) = ? AND YEAR(Transactions.tran_date) = ?' +
+		sortByCategory +
+		' ORDER BY Transactions.tran_date ' +
 		sortByDate +
 		', Transactions.id_tran ' +
 		sortByDate;
