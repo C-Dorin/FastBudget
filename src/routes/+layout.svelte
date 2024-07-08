@@ -1,5 +1,5 @@
 <script>
-	import '../app.css';
+	import '../styles/global.css';
 	import { page } from '$app/stores';
 	import { addIncomeStatus, addExpenseStatus } from '$lib/Components/globalStore';
 	import { addAccountStatus, addCategoryStatus } from '$lib/Components/globalStore';
@@ -99,9 +99,7 @@
 		{#each pagesLibrary as page}
 			<a
 				href={page.path}
-				class="flex flex-row button {currentLinkPage === page.path
-					? 'bice-blue_BG text-slate-200'
-					: 'buttonH'}"
+				class="nav-menu {currentLinkPage === page.path ? 'bice-blue_BG text-slate-200' : 'buttonH'}"
 				on:click={() => switcherPages(page)}
 			>
 				<span class="material-symbols-outlined p-2.5 pt-1.5 pr-3 iconSize">{page.icon}</span>

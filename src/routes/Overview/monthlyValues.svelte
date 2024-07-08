@@ -25,7 +25,7 @@
 </script>
 
 {#if !isLoading}
-	<div class="flex justify-between px-6 pt-6">
+	<div class="monthly-values">
 		<div>
 			<p class="font-semibold">Income</p>
 			<p class="green_TC">{formatNumber($income)} {currency}</p>

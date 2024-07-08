@@ -1,0 +1,56 @@
+@import url('./global.css');
+
+:root {
+	--green-20: rgba(76, 175, 80, 0.2);
+	--red-20: rgba(244, 67, 54, 0.2);
+}
+
+/***** Colors For Overview Page Only *****/
+.transaction-green_BG {
+	background-color: var(--green-20);
+}
+
+.transaction-red_BG {
+	background-color: var(--red-20);
+}
+/***********************************************/
+
+.overview-total-summary {
+	@apply flex justify-between p-2 space-x-4;
+}
+
+.overview-column {
+	@apply w-1/2 p-2 space-y-4;
+}
+
+.overview-card {
+	@apply flex flex-col space-y-2;
+}
+
+.overview-transactions {
+	@apply flex justify-between p-1 pr-2 pl-1 border-r-4 rounded-s-lg text-xl;
+}
+
+.overview-accounts {
+	@apply flex justify-between p-1 pl-1 border-LT text-xl;
+}
+
+.card.summary {
+	@apply flex justify-between w-1/3 text-lg;
+}
+
+.card.monthly-summary {
+	@apply flex flex-col space-x-4;
+}
+
+.monthly-date {
+	@apply flex text-2xl justify-between;
+}
+
+.date {
+	@apply pb-2 border-b border-LT w-2/5;
+}
+
+.monthly-values {
+	@apply flex justify-between px-6 pt-6;
+}

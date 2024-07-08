@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	/* Main colors */
+	--columbia-blue: rgb(185, 214, 242);
+	--bice-blue: rgb(0, 109, 170);
+	--sapphire: rgb(3, 83, 164);
+	--prussian-blue: rgb(0, 53, 89);
+	--oxford-blue: rgb(6, 26, 64);
+	--green: rgb(76, 175, 80);
+	--red: rgb(244, 67, 54);
+
+	/* Other colors */
+	--columbia-blue-50: rgba(185, 214, 242, 0.5);
+	--prussian-blue-80: rgba(0, 53, 89, 0.8);
+	--green-darker: rgb(63, 145, 66);
+	--red-darker: rgb(143, 39, 31);
+}
+
+body {
+	overflow: hidden;
+	overflow-y: auto;
+	background-color: var(--columbia-blue-50);
+}
+
+/***** Default Background Colors *****/
+.content-Light_BG {
+	background-color: var(--columbia-blue-50);
+}
+
+.columbia-blue_BG {
+	background-color: var(--columbia-blue);
+}
+
+.bice-blue_BG {
+	background-color: var(--bice-blue);
+}
+
+.sapphire_BG {
+	background-color: var(--sapphire);
+}
+
+.prussian-blue_BG {
+	background-color: var(--prussian-blue);
+}
+
+.oxford-blue_BG {
+	background-color: var(--oxford-blue);
+}
+
+.green_BG {
+	background-color: var(--green);
+}
+
+.red_BG {
+	background-color: var(--red);
+}
+/***********************************************/
+
+/***** Default Text Colors *****/
+.columbia-blue_TC {
+	color: var(--columbia-blue);
+}
+
+.bice-blue_TC {
+	color: var(--bice-blue);
+}
+
+.sapphire_TC {
+	color: var(--sapphire);
+}
+
+.prussian-blue_TC {
+	color: var(--prussian-blue);
+}
+
+.oxford-blue_TC {
+	color: var(--oxford-blue);
+}
+
+.green_TC {
+	color: var(--green);
+}
+
+.red_TC {
+	color: var(--red);
+}
+
+/***********************************************/
+
+.border-LT {
+	border-color: var(--prussian-blue-80);
+}
+
+.border-green {
+	border-color: var(--green);
+}
+
+.border-green-darker {
+	border-color: var(--green-darker);
+}
+
+.border-red {
+	border-color: var(--red);
+}
+
+.border-red-darker {
+	border-color: var(--red-darker);
+}
+
+/***********************************************/
+/* Global classes */
+
+.layout {
+	@apply p-2;
+}
+
+.nav-menu {
+	@apply flex flex-row text-lg;
+}
+
+.card {
+	@apply p-4 border border-LT rounded-lg columbia-blue_BG text-center;
+}
+
+.cooming-soon-card {
+	@apply flex justify-center py-10;
+}
+.cooming-soon {
+	@apply p-1 px-2 border-2 rounded-2xl text-blue-800 bg-blue-300 border-LT text-4xl;
+}
+
+.no-data {
+	@apply p-16 text-gray-400 text-4xl;
+}
+
+.button {
+	@apply fixed right-8;
+}
+
+.add_button {
+	@apply p-2 w-16 h-16 border rounded-full text-slate-200 shadow-xl text-2xl;
+}
+
+.add_button.green_button {
+	@apply green_BG border-green border-green-darker;
+}
+
+.add_button.red_button {
+	@apply red_BG border-red border-red-darker;
+}
